@@ -4,6 +4,10 @@
 # Never track the generated website folder, it is built on the fly
 www/
 
+# 2. Manifest images
+# Never track the mainifest images
+src/assets/images/
+
 # 2. Ruby Environment and Dependency Artifacts
 .bundle/
 vendor/bundle/
