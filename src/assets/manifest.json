@@ -1,0 +1,394 @@
+{
+  "thumb_dir": "thumbs",
+  "series": [
+    {
+      "album_slug": "vaseline",
+      "photos": [
+        {
+          "filename": "P1001495.webp",
+          "title": "P1001495"
+        },
+        {
+          "filename": "P1011861.webp",
+          "title": "P1011861"
+        },
+        {
+          "filename": "P1012097.webp",
+          "title": "P1012097"
+        },
+        {
+          "filename": "P1011859.webp",
+          "title": "P1011859"
+        },
+        {
+          "filename": "P1001501.webp",
+          "title": "P1001501"
+        },
+        {
+          "filename": "P1001505.webp",
+          "title": "P1001505"
+        }
+      ]
+    },
+    {
+      "album_slug": "almaznoe",
+      "photos": [
+        {
+          "filename": "P1001064.webp",
+          "title": "P1001064"
+        },
+        {
+          "filename": "DP2Q3680.webp",
+          "title": "Dp2q3680"
+        },
+        {
+          "filename": "P1011864.webp",
+          "title": "P1011864"
+        },
+        {
+          "filename": "P1001106.webp",
+          "title": "P1001106"
+        },
+        {
+          "filename": "P1000382.webp",
+          "title": "P1000382"
+        },
+        {
+          "filename": "DP2Q3507.webp",
+          "title": "Dp2q3507"
+        },
+        {
+          "filename": "P1001060.webp",
+          "title": "P1001060"
+        },
+        {
+          "filename": "DP2Q1941.webp",
+          "title": "Dp2q1941"
+        },
+        {
+          "filename": "DP2Q3521.webp",
+          "title": "Dp2q3521"
+        },
+        {
+          "filename": "DP0Q0624.webp",
+          "title": "Dp0q0624"
+        },
+        {
+          "filename": "P1001074.webp",
+          "title": "P1001074"
+        },
+        {
+          "filename": "DP2Q3714.webp",
+          "title": "Dp2q3714"
+        },
+        {
+          "filename": "DP2Q3688.webp",
+          "title": "Dp2q3688"
+        },
+        {
+          "filename": "P1000182.webp",
+          "title": "P1000182"
+        },
+        {
+          "filename": "DP2Q0346.webp",
+          "title": "Dp2q0346"
+        },
+        {
+          "filename": "P1001309.webp",
+          "title": "P1001309"
+        },
+        {
+          "filename": "P1012207.webp",
+          "title": "P1012207"
+        },
+        {
+          "filename": "DP2Q3516.webp",
+          "title": "Dp2q3516"
+        },
+        {
+          "filename": "DP2Q3636.webp",
+          "title": "Dp2q3636"
+        },
+        {
+          "filename": "P1011694.webp",
+          "title": "P1011694"
+        },
+        {
+          "filename": "P1011868.webp",
+          "title": "P1011868"
+        },
+        {
+          "filename": "P1011962.webp",
+          "title": "P1011962"
+        },
+        {
+          "filename": "P1001652.webp",
+          "title": "P1001652"
+        },
+        {
+          "filename": "P1000744.webp",
+          "title": "P1000744"
+        },
+        {
+          "filename": "P1000502.webp",
+          "title": "P1000502"
+        },
+        {
+          "filename": "P1011991.webp",
+          "title": "P1011991"
+        },
+        {
+          "filename": "P1001130.webp",
+          "title": "P1001130"
+        },
+        {
+          "filename": "P1000237.webp",
+          "title": "P1000237"
+        },
+        {
+          "filename": "P1011930.webp",
+          "title": "P1011930"
+        },
+        {
+          "filename": "P1011900.webp",
+          "title": "P1011900"
+        },
+        {
+          "filename": "P1000612.webp",
+          "title": "P1000612"
+        },
+        {
+          "filename": "P1000964.webp",
+          "title": "P1000964"
+        },
+        {
+          "filename": "P1001192.webp",
+          "title": "P1001192"
+        },
+        {
+          "filename": "P1001445.webp",
+          "title": "P1001445"
+        },
+        {
+          "filename": "P1000954.webp",
+          "title": "P1000954"
+        },
+        {
+          "filename": "DP2Q3491.webp",
+          "title": "Dp2q3491"
+        },
+        {
+          "filename": "P1000722.webp",
+          "title": "P1000722"
+        }
+      ]
+    },
+    {
+      "album_slug": "diamond-dust",
+      "photos": [
+        {
+          "filename": "P1001468.webp",
+          "title": "P1001468"
+        },
+        {
+          "filename": "P1001464.webp",
+          "title": "P1001464"
+        },
+        {
+          "filename": "P1001475.webp",
+          "title": "P1001475"
+        },
+        {
+          "filename": "P1001474.webp",
+          "title": "P1001474"
+        },
+        {
+          "filename": "P1001476.webp",
+          "title": "P1001476"
+        },
+        {
+          "filename": "P1001460.webp",
+          "title": "P1001460"
+        },
+        {
+          "filename": "P1001463.webp",
+          "title": "P1001463"
+        },
+        {
+          "filename": "P1001467.webp",
+          "title": "P1001467"
+        }
+      ]
+    },
+    {
+      "album_slug": "svalovichi",
+      "photos": [
+        {
+          "filename": "DP2Q2575.webp",
+          "title": "Dp2q2575"
+        },
+        {
+          "filename": "DP2Q3203.webp",
+          "title": "Dp2q3203"
+        },
+        {
+          "filename": "DP2Q2551.webp",
+          "title": "Dp2q2551"
+        },
+        {
+          "filename": "DP2Q3223.webp",
+          "title": "Dp2q3223"
+        },
+        {
+          "filename": "DP2Q2569.webp",
+          "title": "Dp2q2569"
+        },
+        {
+          "filename": "DP2Q3271.webp",
+          "title": "Dp2q3271"
+        },
+        {
+          "filename": "DP2Q2655.webp",
+          "title": "Dp2q2655"
+        },
+        {
+          "filename": "DP2Q3216.webp",
+          "title": "Dp2q3216"
+        },
+        {
+          "filename": "DP2Q3166.webp",
+          "title": "Dp2q3166"
+        },
+        {
+          "filename": "DP2Q3280.webp",
+          "title": "Dp2q3280"
+        },
+        {
+          "filename": "DP2Q2697.webp",
+          "title": "Dp2q2697"
+        },
+        {
+          "filename": "DP0Q0549.webp",
+          "title": "Dp0q0549"
+        },
+        {
+          "filename": "DP2Q2595.webp",
+          "title": "Dp2q2595"
+        },
+        {
+          "filename": "DP2Q2644.webp",
+          "title": "Dp2q2644"
+        },
+        {
+          "filename": "DP2Q2558.webp",
+          "title": "Dp2q2558"
+        },
+        {
+          "filename": "DP2Q3160.webp",
+          "title": "Dp2q3160"
+        },
+        {
+          "filename": "DP2Q2734.webp",
+          "title": "Dp2q2734"
+        },
+        {
+          "filename": "DP2Q3296.webp",
+          "title": "Dp2q3296"
+        },
+        {
+          "filename": "DP2Q2583.webp",
+          "title": "Dp2q2583"
+        },
+        {
+          "filename": "DP2Q3313.webp",
+          "title": "Dp2q3313"
+        },
+        {
+          "filename": "DP2Q2554.webp",
+          "title": "Dp2q2554"
+        },
+        {
+          "filename": "DP2Q3359.webp",
+          "title": "Dp2q3359"
+        },
+        {
+          "filename": "DP2Q2553.webp",
+          "title": "Dp2q2553"
+        },
+        {
+          "filename": "DP2Q2659.webp",
+          "title": "Dp2q2659"
+        },
+        {
+          "filename": "DP2Q3253.webp",
+          "title": "Dp2q3253"
+        },
+        {
+          "filename": "DP2Q2604.webp",
+          "title": "Dp2q2604"
+        }
+      ]
+    },
+    {
+      "album_slug": "stonetomb",
+      "photos": [
+        {
+          "filename": "DP2Q2200.webp",
+          "title": "Dp2q2200"
+        },
+        {
+          "filename": "DP0Q0458.webp",
+          "title": "Dp0q0458"
+        },
+        {
+          "filename": "DP0Q0409.webp",
+          "title": "Dp0q0409"
+        },
+        {
+          "filename": "DP0Q0433.webp",
+          "title": "Dp0q0433"
+        },
+        {
+          "filename": "DP2Q2948.webp",
+          "title": "Dp2q2948"
+        },
+        {
+          "filename": "DP2Q2173.webp",
+          "title": "Dp2q2173"
+        },
+        {
+          "filename": "DP2Q2959.webp",
+          "title": "Dp2q2959"
+        },
+        {
+          "filename": "DP2Q2181.webp",
+          "title": "Dp2q2181"
+        },
+        {
+          "filename": "DP2Q2956.webp",
+          "title": "Dp2q2956"
+        },
+        {
+          "filename": "DP0Q0401.webp",
+          "title": "Dp0q0401"
+        },
+        {
+          "filename": "DP0Q0408.webp",
+          "title": "Dp0q0408"
+        },
+        {
+          "filename": "DP0Q0398.webp",
+          "title": "Dp0q0398"
+        },
+        {
+          "filename": "DP2Q2192.webp",
+          "title": "Dp2q2192"
+        },
+        {
+          "filename": "DP2Q2962.webp",
+          "title": "Dp2q2962"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,10 @@
-::: {.page-main-body-content}
+---
+description: Personal photography portfolio and series visual exploration.
+---
 
-![RAWWW Engine Card](og-card.png){style="display: block; margin: 0 auto 3rem auto; width: 100%; max-width: 1200px; border-radius: 6px; border: 1px solid var(--border-color);"}
+<!-- Structural viewport boundary for the dynamic mosaic calculations -->
+<div class="canvas-wrapper">
+  <div id="mosaic-grid" class="mosaic-grid"></div>
+</div>
 
-:::
+<script src="/assets/js/mosaic.js" defer></script>

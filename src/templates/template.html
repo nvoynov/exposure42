@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="$if(lang)$$lang$$else$en$endif$">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Standard Primary SEO Layer -->
+  <title>$if(title)$$title$ | Nikolay Voynov Exposure$else$Nikolay Voynov Exposure$endif$</title>
+  $if(description)$<meta name="description" content="$description$">$endif$
+  
+  <!-- Absolute Canonical Anchor: Prevents content duplication and locks first authorship -->
+  <link rel="canonical" href="$if(site_base_url)$$site_base_url$$endif$$if(url_path)$$url_path$$endif$">
+  
+  <!-- Branding Visual Identities Core Assets -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Core Open Graph Social Metadata Layer -->
+  <meta property="og:site_name" content="Nikolay Voynov. Exposure">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="$if(page_type)$$page_type$$else$website$endif$">
+  <meta property="og:title" content="$if(title)$$title$$else$Home$endif$">
+  $if(description)$<meta property="og:description" content="$description$">$endif$
+  <meta property="og:url" content="$if(site_base_url)$$site_base_url$$endif$$if(url_path)$$url_path$$endif$">
+  <meta property="og:image" content="$if(site_base_url)$$site_base_url$$endif$/$if(og_image_source)$$og_image_source$$else$og_main_cover.jpg$endif$">
+</head>
+
+<body>
+  <div class="site-container">
+    <header class="site-header">
+      <div class="site-title">
+        <!-- FIXED: Dropped H1 from master header layout to secure clean document outline -->
+        <div class="site-title-text">
+          <a href="/index.html">
+            Nikolay Voynov
+            <img src="/glyph.svg" class="header-divider-icon" alt="" />
+            Exposure
+          </a>
+        </div>
+      </div>
+
+      <nav class="site-nav">
+        <a href="/index.html" class="nav-link">Main</a>
+        <a href="/series.html" class="nav-link">Series</a>
+        <a href="/about.html" class="nav-link">About</a>
+      </nav>
+    </header>
+
+    <main class="content-container">
+
+      <!-- Native Markdown text output channel compiled by Pandoc -->
+      <div class="page-main-body-content">
+        $body$
+      </div>
+
+      <!-- Pandoc native body injection channel -->
+      $include-before$
+    </main>
+
+    <footer>
+      <p>&copy; 2026 $author$. All rights reserved.</p>
+      <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 5px;">
+        No images or text on this site may be reproduced or transmitted 
+        in any form without prior written permission.
+      </p>
+    </footer>
+
+    <!-- Progressive Web App Caching Lifecycle Activation -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('==> [PWA Engine] ServiceWorker successfully registered:', reg.scope))
+            .catch(err => console.error('--> [PWA Engine] ServiceWorker registration failed:', err));
+        });
+      }
+    </script>
+  </div>
+</body>
+</html>

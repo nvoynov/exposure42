@@ -2,6 +2,7 @@
 
 require 'fileutils'
 require './lib/rawww'
+require './lib/exposure'
 
 namespace :site do
   COMPILER = Rawww::Pandoc
@@ -14,9 +15,29 @@ namespace :site do
       hash[page.destination_path] = page
     end
   end
+  
+  # Helper method to dry up and orchestrate native Pandoc include-before-body injections
+  def compile_pandoc_extra_args(target_src)
+    extra_args = []
+  
+    analytics_part = "#{SRC_DIR}/templates/analytics_fragment.html"
+    lightbox_part  = "#{SRC_DIR}/templates/lightbox_fragment.html"
+    is_main_page   = target_src.match?(/\/index\.html$/)
+    is_series_page = target_src.match?(/\/series\/.*\.html$/)
+    
+    # 1. Global production tracking scripts layer
+    extra_args << "--include-before-body=#{analytics_part}" if File.exist?(analytics_part)
+
+    # 2. Contextual dynamic lightbox overlays engine
+    if (is_main_page || is_series_page) && File.exist?(lightbox_part)
+      extra_args << "--include-before-body=#{lightbox_part}"
+    end
+
+    extra_args
+  end
 
   desc "Compile all Markdown pages into production HTML website"
-  task :compile => 'manifest:sync' do
+  task :compile do
     # 1. Evaluate the pages map FRESH, after manifest:sync has completed its execution
     pages_map = targets_map
     
@@ -27,9 +48,10 @@ namespace :site do
 
       # Track timestamps manually to preserve Rake's incremental build speed
       # Rebuild only if target is missing, or if source/template are newer
-      should_rebuild = !File.exist?(destination_path) || 
-                       File.mtime(page.source_path) > File.mtime(destination_path) ||
-                       File.mtime(template_path) > File.mtime(destination_path)
+      should_rebuild =
+        !File.exist?(destination_path) || 
+        File.mtime(page.source_path) > File.mtime(destination_path) ||
+        File.mtime(template_path) > File.mtime(destination_path)
 
       if should_rebuild
         FileUtils.mkdir_p(File.dirname(destination_path))
@@ -40,6 +62,7 @@ namespace :site do
         base_domain = config.site_url.chomp('/')
         page_path = page.slug == 'index' ? "#{current_root}/" : "#{current_root}/#{page.slug}.html"
         calculated_canonical = "#{base_domain}#{page_path}"
+        extra_args = compile_pandoc_extra_args(destination_path)
 
         COMPILER.call(
           source: page.source_path,
@@ -50,11 +73,26 @@ namespace :site do
             'canonical_url' => calculated_canonical,
             'site_title' => config.title,
             'author' => config.author
-          )
+          ),
+          extra_arguments: extra_args
         )
         puts "  » compile: #{page.source_path} -> /#{page.slug}.html [layout: #{layout_name}]"
       end
     end
+  end
+
+  SW_MANIFEST = File.join(Rawww::PUBLIC_DIR, 'sw_manifest.json')
+  desc "Build SW manifest"
+  file SW_MANIFEST do |t|
+    raw = Exposure::BuildSwManifest.call(Rawww::PUBLIC_DIR)
+    File.write(t.name, raw)
+    puts "  » SW mainifest: -> #{t.name}"
+  end
+
+  SW_SRC = File.join('src', 'sw.js')
+  SW_TRG = File.join(Rawww::PUBLIC_DIR, 'sw.js')
+  file SW_TRG do |t|
+    FileUtils.cp SW_SRC, SW_TRG
   end
 
   desc "Clean compiled site pages"
@@ -70,5 +108,5 @@ namespace :site do
 end
 
 # Reset top-level build chain pipelines
-task :build => ['assets:copy', 'site:compile', 'seo:generate']
+task :build => ['manifest:sync', 'assets:copy', 'site:compile', SW_MANIFEST, SW_TRG, 'seo:generate']
 task :clean => ['site:clean', 'manifest:clean', 'assets:clean', 'seo:clean']

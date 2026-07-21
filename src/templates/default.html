@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- Standard Primary SEO Layer -->
-  <title>$if(title)$$title$ | RAWWW Engine$else$RAWWW Static Site$endif$</title>
+  <title>$if(title)$$title$ | $author$ Exposure$else$$author$ Exposure$endif$</title>
   $if(description)$<meta name="description" content="$description$">$endif$
   
   <!-- Absolute Canonical Anchor: Automated by Rake and calculated per page model -->
   <link rel="canonical" href="$canonical_url$">  
   
-  <!-- Open Graph / Facebook Production Layer -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="$canonical_url$">
-  <meta property="og:title" content="$if(title)$$title$ | RAWWW Engine$else$RAWWW Static Site$endif$">
-  <meta property="og:description" content="Raw Markdown to WWW. A minimalist, high-utility static website engine driven by Ruby, Rake, and Pandoc.">
-  <!-- Clean absolute path pointing straight to the root production banner -->
-  <!-- <meta property="og:image" content="$site_url$$root_path$/og-card.svg"> -->
-  <meta property="og:image" content="$site_url$$root_path$/og-card.png">
+  <!-- Core Open Graph Social Metadata Layer -->
+  <meta property="og:site_name" content="$author$ Exposure">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="$if(page_type)$$page_type$$else$website$endif$">
+  <meta property="og:title" content="$if(title)$$title$ | $author$ Exposure$else$$author$ Exposrue$endif$">
+  $if(description)$<meta property="og:description" content="$description$">$endif$
+  <meta property="og:url" content="$if(site_base_url)$$site_base_url$$endif$$if(url_path)$$url_path$$endif$">
+  <meta property="og:image" content="$if(site_base_url)$$site_base_url$$endif$/$if(og_image_source)$$og_image_source$$else$og_main_cover.jpg$endif$">
 
   <!-- Branding Visual Identities Core Assets -->
-  <link rel="icon" type="image/svg+xml" href="$root_path$/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="$root_path$/assets/favicon.svg">
   <!-- 2. Dynamic root path injection for the master stylesheet -->
   <link rel="stylesheet" href="$root_path$/assets/css/style.css">
 </head>
@@ -31,11 +31,10 @@
     <header class="site-header">
       <div class="site-title">
         <div class="site-title-text">
-          <!-- 3. Dynamic root path injection for the home link -->
-          <a href="$root_path$/index.html">
-            <!-- 4. Dynamic root path injection for the header logo glyph -->
-            <img src="$root_path$/favicon.svg" class="header-divider-icon" alt="RAWWW Logo" style="height: 1.5rem; vertical-align: middle; margin-right: 0.5rem;" />
-            RAWWW
+          <a href="/index.html">
+            Nikolay Voynov
+            <img src="/assets/glyph.svg" class="header-divider-icon" alt="" />
+            Exposure
           </a>
         </div>
       </div>
@@ -44,8 +43,7 @@
       <nav class="site-nav">
         <!-- 5. Dynamic root path injection for navigation mapping -->
         <a href="$root_path$/index.html" class="nav-link">Home</a>
-        <a href="$root_path$/readme.html" class="nav-link">Readme</a>
-        <a href="$root_path$/changelog.html" class="nav-link">Changelog</a>
+        <a href="$root_path$/series.html" class="nav-link">Series</a>
         <a href="$root_path$/about.html" class="nav-link">About</a>
       </nav>
     </header>
@@ -61,11 +59,23 @@
     </main>
 
     <footer>
-      <p>&copy; 2026 $if(author)$$author$$else$RAWWW Developer$endif$. All rights reserved.</p>
+      <p>&copy; 2026 $author$. All rights reserved.</p>
       <p style="font-size: 0.75rem; opacity: 0.6; margin-top: 5px;">
-        Powered by Rake and Pandoc. Clean, minimal, raw web.
+        No images or text on this site may be reproduced or transmitted 
+        in any form without prior written permission.
       </p>
     </footer>
+
+    <!-- Progressive Web App Caching Lifecycle Activation -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('==> [PWA Engine] ServiceWorker successfully registered:', reg.scope))
+            .catch(err => console.error('--> [PWA Engine] ServiceWorker registration failed:', err));
+        });
+      }
+    </script>
   </div>
 </body>
 </html>

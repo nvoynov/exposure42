@@ -1,79 +1,35 @@
 ## [Unreleased]
 
-## [Unreleased] - 2026-07-19
+TODO
 
-- sitemap generator moved to `build/sitemap.rb`
-- manifest page generator extracted into `build/page.rb`
+__Rawww__
 
-## [0.1.0] - 2026-07-18
+- [ ] move favicon and glyphs into assets/ and do :assets to od its job
+- [ ] build => :manifest, :assets, ...
+- [ ] add sw.js, sw_manifest (just in build.rake without Build::SwManfiest)
 
-- changed `src/about.md` for prividing banner
-- designed `rakelib/manifest.rake` demo for copying README and CHANGELOG; accordingly updated navigagion in `src/templates/default.html`
+__nvoynov.dev__
 
-## [Unrelesed] - 2026-07-16
+- [ ] apply Rawww changes!
 
-- added `src/og-card.svg`
-- fixed "Untitled |" thing
-- cleaned extra `/src/*.svg`
-- copied `svg` into `/assets`
+__nvoynov.art__
 
-## [Unreleased] - 2026-07-15
+- [ ] apply Rawww changes
+- [ ] add og-image
+  - [ ] series/<slug>
+  - [ ] for /index, mabye find good pattern do screenshot?
+- [ ] check Conifg usage
+- [ ] image links
+- [ ] prune assets/images/**/*.webp that not exist in series_dir
+- [ ] check on github/exposure
+- [ ] connnect analytics codes
+  - [ ] nvoynov.dev
+  - [ ] nvoynov.art
+- [ ] review main series with Gemini and make final PUBLIC.md
+- [ ] buy domain
+- [ ] deploy on domain
 
-Initial release
+## 2026-07-21
 
-```
-├── CHANGELOG.md
-├── compose.yaml
-├── copilot-prompt.md
-├── Dockerfile
-├── Gemfile
-├── lib
-│   ├── basic
-│   │   ├── alias_members.rb
-│   │   ├── callable.rb
-│   │   ├── cli_tool.rb
-│   │   └── configuration.rb
-│   ├── basic.rb
-│   ├── rawww
-│   │   ├── banner.rb
-│   │   ├── basic.rb
-│   │   ├── model
-│   │   │   ├── page.rb
-│   │   │   └── site.rb
-│   │   ├── model.rb
-│   │   ├── pandoc.rb
-│   │   └── version.rb
-│   └── rawww.rb
-├── PROMPT.md
-├── Rakefile
-├── rakelib
-│   ├── assets.rake
-│   ├── build.rake
-│   ├── deploy.rake
-│   ├── seo.rake
-│   └── serve.rake
-├── README.md
-├── src
-│   ├── 404.md
-│   ├── about.md
-│   ├── assets
-│   │   ├── css
-│   │   │   ├── modules
-│   │   │   │   ├── about.css
-│   │   │   │   ├── base.css
-│   │   │   │   ├── content.css
-│   │   │   │   ├── error.css
-│   │   │   │   └── header.css
-│   │   │   └── style.css
-│   │   ├── images
-│   │   └── js
-│   ├── favicon.svg
-│   ├── favicon1.svg
-│   ├── index.md
-│   └── templates
-│       ├── analytics.html
-│       └── default.html
-└── www
-
-14 directories, 39 files
-```
+- ported exposure code
+- it works!

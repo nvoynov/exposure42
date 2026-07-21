@@ -1,0 +1,211 @@
+/* src/css/modules/series_index.css - Genuine Sketchbook Collections Layout */
+
+/* Column layout container holding the scattered clouds */
+.collections-sketchbook {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  padding: 3rem 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6rem !important; /* Large gaps between clouds to give them breathing room */
+}
+
+/* Base interactive bounding container for an individual cloud collage canvas */
+.album-cloud-canvas {
+  display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  max-width: 500px !important; /* Constrains the cloud to a controlled rectangular workspace */
+  height: 380px !important;     /* Hard desktop height to anchor absolute children */
+  text-decoration: none !important;
+  transition: transform 0.4s ease !important;
+}
+
+/* SCATTER EFFECT: Shifts odd and even clouds horizontally and tilts them slightly */
+.album-cloud-canvas:nth-child(odd) {
+  align-self: flex-start !important;
+  transform: rotate(-1deg) !important;
+}
+.album-cloud-canvas:nth-child(even) {
+  align-self: flex-end !important;
+  transform: rotate(1.5deg) !important;
+  margin-right: 5% !important;
+}
+
+/* Gentle hover interaction for the entire collage cluster */
+.album-cloud-canvas:hover {
+  transform: scale(1.02) rotate(0deg) !important;
+}
+
+/* Internal wrapper that anchors absolute-positioned stacked photographs */
+.cloud-photos-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+}
+
+/* Shared rules for individual overlapping photo items inside the cloud */
+.cloud-photos-wrapper .cloud-pic {
+  position: absolute !important;
+  background-color: #fcfcfc !important;
+  overflow: hidden !important;
+  aspect-ratio: 3 / 2 !important; /* Forces perfect aspect-ratio framing bounds */
+  transition: transform 0.3s ease, z-index 0s !important;
+
+  /* 
+     FIXED FINE-ART COMPOSITE BORDER & SHADOW:
+     Injects a solid 5px clean white passepartout framing margin.
+     Combined with a subtle drop shadow to prevent overlap clipping.
+  */
+  box-shadow: 
+    inset 0 0 0 5px #ffffff,
+    0 4px 15px rgba(0,0,0,0.06) !important;
+}
+
+/* Force the compiled inner image node to completely fill its parent frame budget bounds */
+.cloud-photos-wrapper .cloud-pic img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  padding: 5px !important; /* Strategic safety padding pushes image content inside border framework */
+  box-sizing: border-box !important;
+  max-width: none !important;
+}
+
+/* The Chaotic Cloud Overlap Pattern Coordinate Distribution Matrix */
+.cloud-photos-wrapper .pic-base         { width: 55% !important; left: 20% !important; top: 15% !important; z-index: 10 !important; transform: rotate(-2deg) !important; }
+.cloud-photos-wrapper .pic-offset-one   { width: 45% !important; left: 5% !important;  top: 5% !important;  z-index: 5 !important;  transform: rotate(4deg) !important;  }
+.cloud-photos-wrapper .pic-offset-two   { width: 42% !important; right: 5% !important; top: 8% !important;  z-index: 8 !important;  transform: rotate(-5deg) !important; }
+.cloud-photos-wrapper .pic-offset-three { width: 48% !important; left: 12% !important; bottom: 5% !important; z-index: 12 !important; transform: rotate(3deg) !important;  }
+.cloud-photos-wrapper .pic-offset-four  { width: 44% !important; right: 10% !important; bottom: 12% !important; z-index: 7 !important;  transform: rotate(-3deg) !important; }
+
+/* Lift the specific hovered photo to the top of the local stack */
+.cloud-photos-wrapper .cloud-pic:hover {
+  z-index: 50 !important;
+  transform: scale(1.04) rotate(0deg) !important;
+  box-shadow: 
+    inset 0 0 0 5px #ffffff,
+    0 12px 28px rgba(0,0,0,0.12) !important;
+}
+
+/* Album title typography and placement */
+.cloud-title-block {
+  position: absolute !important;
+  z-index: 20 !important;
+  bottom: -30px !important;
+  left: 5% !important;
+  pointer-events: none !important;
+}
+
+/* Pull title to the right side on mirrored even cloud canvases */
+.album-cloud-canvas:nth-child(even) .cloud-title-block {
+  left: auto !important;
+  right: 5% !important;
+  text-align: right !important;
+}
+
+.cloud-title-block h3 {
+  margin: 0 !important;
+  font-family: inherit !important;
+  font-weight: 300 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+  background-color: rgba(251, 251, 251, 0.85) !important;
+  padding: 5px 10px !important;
+  display: inline-block !important;
+}
+
+.cloud-title-block h3 a {
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+.album-cloud-canvas:hover .cloud-title-block h3 a {
+  color: #666666 !important;
+}
+
+/* ==========================================================================
+   FIXED RESPONSIVE MOBILE OPTIMIZATION BREAKPOINTS FOR CLOUD COLLAGES
+   ========================================================================= */
+@media (max-width: 767px) {
+  .collections-sketchbook {
+    gap: 4.5rem !important; /* Elegant vertical breathing space between series blocks */
+    padding: 2rem 1rem !important;
+  }
+
+  /* 
+     FIXED FLUID FLEX STREAM:
+     Turns the mobile block canvas card into a natural vertical flex stream.
+     Completely isolates layout items from overlapping or crashing into the footer!
+  */
+  .album-cloud-canvas {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important; /* Release hard height limits to let text sit naturally */
+    max-width: 100% !important;
+    align-self: center !important; 
+    margin-bottom: 0 !important;
+  }
+
+  .album-cloud-canvas:nth-child(even) {
+    align-self: center !important;
+    margin-right: 0 !important;
+  }
+
+  /* Force the overlapping image deck pile container to hold exactly 180px height bounds */
+  .cloud-photos-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    height: 180px !important; 
+    z-index: 1 !important;
+  }
+  
+  .cloud-photos-wrapper .cloud-pic {
+    box-shadow: 
+      inset 0 0 0 4px #ffffff,
+      0 6px 16px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .cloud-photos-wrapper .cloud-pic img {
+    padding: 4px !important; 
+  }
+
+  /* Tight horizontal interleaving distribution matrix */
+  .pic-base         { width: 48% !important; left: 26% !important; top: 0 !important; z-index: 10 !important; transform: rotate(-1.5deg) !important; }
+  .pic-offset-one   { width: 42% !important; left: 2% !important;  top: -10px !important; z-index: 5 !important; transform: rotate(3deg) !important; }
+  .pic-offset-two   { width: 40% !important; right: 2% !important; top: -5px !important; z-index: 8 !important; transform: rotate(-4deg) !important; }
+  .pic-offset-three { width: 44% !important; left: 8% !important;  top: 25px !important; z-index: 12 !important; transform: rotate(2deg) !important; }
+  .pic-offset-four  { width: 42% !important; right: 6% !important; top: 30px !important; z-index: 7 !important; transform: rotate(-2deg) !important; }
+
+  /* 
+     FIXED MOBILE TITLES POSITIONING:
+     Sits naturally nested under the 180px wrapper container in fluid stream layout.
+     Applied negative margin layout shift to forcefully pull the title block 
+     upwards and overlap nicely with the lower edges of the chaotic photos pile!
+  */
+  .cloud-title-block {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    margin-top: -15px !important; 
+    text-align: center !important;
+    z-index: 20 !important;
+  }
+  
+  .album-cloud-canvas:nth-child(even) .cloud-title-block {
+    left: auto !important;
+    right: auto !important;
+    text-align: center !important;
+  }
+  
+  .cloud-title-block h3 {
+    font-size: 0.85rem !important;
+  }
+}

@@ -1,66 +1,68 @@
-/* src/assets/css/modules/about.css - Editorial About Page Layout */
+/* src/css/modules/about.css - Editorial About Page Layout (Pandoc Native Section Mapping) */
 
 /* 1. Master Container Layout Configuration bound to the Pandoc Section Node */
 section.about-page-container {
-  display: block;
-  width: 100%;
-  max-width: 40.625rem; /* 650px / 16 — Restores the perfect reading line length */
-  margin: 2.5rem auto 0 auto; /* Centers the reading colophon on the screen */
-  padding: 0 1.5rem; 
-  box-sizing: border-box;
+  display: block !important;
+  width: 100% !important;
+  max-width: 40.625rem !important; /* 650px / 16 — Restores the perfect reading line length */
+  margin: 2.5rem auto 0 auto !important; /* Centers the reading colophon on the screen */
+  padding: 0 1.5rem !important; 
+  box-sizing: border-box !important;
 }
 
 /* 2. Text Content Block Editorial Typography scoped inside the compiled section */
 section.about-page-container h1 {
-  font-weight: 400;
-  font-size: 1.1rem;       /* 17.6px — Balanced size, smaller than site logo */
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-top: 1.25rem;   /* Soft starting gap below the header line */
-  margin-bottom: 1.5625rem; 
-  text-align: center;     /* Centered to mirror the balanced site header rhythm */
-  color: #000000;
+  font-weight: 400 !important;
+  font-size: 1.1rem !important;       /* 17.6px — Balanced size, smaller than site logo */
+  letter-spacing: 3px !important;
+  text-transform: uppercase !important;
+  margin-top: 1.25rem !important;   /* Soft starting gap below the header line */
+  margin-bottom: 1.5625rem !important; 
+  text-align: center !important;     /* Centered to mirror the balanced site header rhythm */
+  color: #111111 !important;
 }
 
+/* FIXED: Target h2 elements directly inside the section.about-page-container element */
 section.about-page-container h2 {
-  font-weight: 500;
-  font-size: 0.8125rem;  /* 13px / 16 — Subtitle weight scale */
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-top: 1.875rem;   /* Tightened to 30px — closes the gap from the previous block */
-  margin-bottom: 0.75rem; /* Tightened to 12px — pulls the title tightly to its text */
-  text-align: left;      /* Keeps technical sections strictly left-aligned */
-  color: #222222;
-  line-height: 1.4;       /* Prevents multi-line headers from blowing up vertically */
+  font-weight: 500 !important;
+  font-size: 0.8125rem !important;  /* 13px / 16 — Subtitle weight scale */
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  margin-top: 1.875rem !important;   /* FIXED: Tightened to 30px — closes the gap from the previous block */
+  margin-bottom: 0.75rem !important; /* FIXED: Tightened to 12px — pulls the title tightly to its text */
+  text-align: left !important;      /* Keeps technical sections strictly left-aligned */
+  color: #222222 !important;
+  line-height: 1.4 !important;       /* Prevents multi-line headers from blowing up vertically */
 }
 
+/* Clean, easy-to-read narrative style for informational pages */
 section.about-page-container p {
-  color: #444444;        /* Softer contrast so text steps elegantly into the background */
-  font-size: 0.875rem;   /* Strict 14px — neat and readable */
-  line-height: 1.6;      /* Standard reading line pace */
-  margin-bottom: 1.25rem; 
-  text-align: left;
+  color: #444444 !important;        /* Softer contrast so text steps into the background */
+  font-size: 0.875rem !important;   /* Strict 14px — neat and readable */
+  line-height: 1.6 !important;      /* Standard reading line pace */
+  margin-bottom: 1.25rem !important; 
+  text-align: left !important;
 }
 
 section.about-page-container hr {
-  border: none;
-  border-top: 1px solid #eeeeee;
-  margin: 2.1875rem 0;   /* 35px / 16 */
+  border: none !important;
+  border-top: 1px solid #f0f0f0 !important;
+  margin: 2.1875rem 0 !important;   /* 35px / 16 */
 }
 
-/* 3. Elegant Contact/Feature List Matrix mapped to native Pandoc lists inside section */
+/* 3. Elegant Contact List Matrix mapped to native Pandoc lists inside section */
 section.about-page-container ul {
-  padding-left: 0;
-  list-style: none;      /* Technical bullets dropped for clean look */
-  margin-top: 1.25rem;   
-  margin-bottom: 1.875rem; 
+  padding-left: 0 !important;
+  list-style: none !important;      /* Technical bullets dropped for clean look */
+  margin-top: 1.25rem !important;   
+  margin-bottom: 1.875rem !important; 
 }
 
 section.about-page-container li {
-  font-size: 0.8125rem;  /* 13px / 16 — Solid and compact size for core metadata */
-  line-height: 1.5;
-  color: #444444;
-  margin-bottom: 0.5rem; 
+  font-size: 0.8125rem !important;  /* 13px / 16 — Solid and compact size for metadata */
+  line-height: 1.5 !important;
+  color: #444444 !important;
+  margin-bottom: 0.5rem !important; 
 }
 
 /* ==========================================================================
@@ -68,11 +70,11 @@ section.about-page-container li {
    ========================================================================== */
 @media (max-width: 767px) {
   section.about-page-container {
-    margin-top: 1.25rem;
-    padding: 0 15px;     /* Safety margins padding for mobile phone edges */
+    margin-top: 1.25rem !important;
+    padding: 0 10px !important;     /* Safety margins padding for mobile phone edges */
   }
   
   section.about-page-container h2 {
-    margin-top: 2.5rem;
+    margin-top: 2.5rem !important;
   }
 }

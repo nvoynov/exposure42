@@ -1,4 +1,4 @@
-/* src/assets/css/modules/header.css */
+/* src/css/modules/header.css */
 
 .site-header {
   display: flex;
@@ -7,16 +7,16 @@
   text-align: center;
   margin-top: 3.75rem;     /* 60px / 16 */
   padding-bottom: 2.5rem;  /* 40px / 16 — Breathable space above the divider line */
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
 }
 
-/* Scoped selector matching our structural brand title anchor */
+/* FIXED: Swapped from h1 to the new semantic class selector */
 .site-title .site-title-text {
-  font-size: 1.35rem;     /* Slightly increased from 1.25rem for balanced weight */
-  font-weight: 300;       
-  letter-spacing: 0.22em; 
+  font-size: 1.25rem;     /* 20px — Delicate and premium editorial size */
+  font-weight: 300;       /* Thin lightweight character weighting */
+  letter-spacing: 0.22em; /* Premium wide layout tracking */
   text-transform: uppercase;
-  margin: 0 0 1.875rem 0;  
+  margin: 0 0 1.875rem 0;  /* 30px / 16 — Air gap underneath the master title */
   line-height: 1;
   display: inline-block;
 }
@@ -25,15 +25,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #222222;
+  color: #1a1a1a;
   text-decoration: none;
 }
 
-/* Micro graphic styling for our custom embedded pixel matrix logo */
 .header-divider-icon {
-  height: 1.25rem;         /* 20px proportional matching to the title scale */
+  width: 1.125rem;         /* 18px / 16 — Elegant micro scale */
+  height: 1.125rem;
+  margin: 0 1.5rem;        /* 24px / 16 — Safe gaps around the glyph */
   vertical-align: middle;
-  margin-right: 0.5rem;    /* Clean tracking gap before the text */
+  opacity: 0.75;
 }
 
 .site-nav {
@@ -48,11 +49,11 @@
   font-weight: 400;       
   letter-spacing: 0.28em; 
   text-transform: uppercase;
-  color: #444444;         /* Matches our system fallback color schema */
+  color: #2c2c2c;         /* Solid dark graphite */
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .site-nav a:hover {
-  color: #000000;
+  color: #888;
 }

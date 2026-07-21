@@ -1,34 +1,44 @@
 ---
-title: About & Manifesto
+title: About
 ---
 
 ::: {.about-page-container}
 
-# RAWWW Manifesto
+# Exposure
 
-> "The web is bloated. Let's make it raw again."
+Exposure is an open space for my photographic series. The main idea behind it 
+is to build a quiet environment meant to strip away the noise of modern digital 
+feeds, letting each series breathe.
 
-**RAWWW** is a philosophical pushback against the modern web infrastructure. We believe that building a fast, accessible, and beautiful website should not require a 500MB `node_modules` folder, complex hydration strategies, or fragile JavaScript compilation steps.
+Photography is not my professional career. It is one of my childhood hobbies, 
+which suddenly returned in my middle years and gradually grew into something 
+deeper. This website is the result of reaching a turning point where I felt 
+it was the right time to share.
 
-We build websites like we shoot photographs: in **RAW format**. We keep the raw data clean, unmodified, and honest, compiling it directly into the final presentation without unnecessary compression of thought.
+## Contact & Collaboration
 
-## Core Principles
+If you are interested in my work, wish to exhibit some of these series, 
+or would like to acquire a physical print for your collection, please feel 
+free to reach out. I am open to conversations, exhibitions, and independent 
+art collaborations.
 
-1. **Content First**: Your site exists to deliver text, images, and data. Everything else is secondary. Pandoc Markdown keeps your core content portable, indestructible, and human-readable.
-2. **Predictable Automation**: Heavy frameworks abstract too much. We use Ruby and Rake because they are transparent, fast, and time-tested. One file, clear rules, instant execution.
-3. **Zero JavaScript Overhead**: The fastest script is the one that never loads. Interactions should rely on modern CSS. JavaScript is treated as a progressive enhancement, never a dependency.
-4. **Environment Isolation**: No more "it works on my machine." A single container file covers your complete toolchain—Ruby, Rake, and Pandoc. Build locally, run anywhere.
-
-## The Toolchain
-
-This starter kit is deliberately minimal, utilizing tools that built the modern internet and continue to outlast temporary tech trends:
-
-* **Pandoc**: The ultimate document converter, giving you unparalleled Markdown power.
-* **Ruby & Rake**: Elegant scripting and clean task management for asset pipeline orchestration.
-* **Docker/Podman**: Production-ready environment immutability.
+- **Email:** nvoynov@gmail.com
+- **Location:** Kyiv, Ukraine
 
 ---
 
-*This site was built from a raw state. Feel free to delete this manifesto, replace the branding, and start writing your own story.*
+## Hidden Technical Footprints (For the Dedicated)
+
+Every individual photograph on this site carries an embedded digital passport. 
+By interacting with the visual lightboxes, dedicated viewers can reveal the 
+hidden metadata alayer.
+
+## Print Editions & Clearance
+
+Behind the public gallery grids lies a restricted archival layer. To preserve 
+the rarity and documentary integrity of physical prints, fine-art collectors 
+and gallery curators can request access to unlinked clearance tracking ledger 
+nodes. These hidden directories provide absolute transparency regarding print 
+run availability, edition statuses, and gallery distribution logs.
 
 :::
