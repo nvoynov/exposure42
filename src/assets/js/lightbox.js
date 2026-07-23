@@ -1,5 +1,9 @@
-/* src/js/lightbox.js - Clean Isolated Lightbox Engine */
+/* ==========================================================================
+   RAWWW CORE LIGHTBOX & DEEP LINKING ENGINE (DYNAMIC LIVE DOM PACK)
+   ========================================================================== */
+
 document.addEventListener('DOMContentLoaded', () => {
+  // --- LAYER 1: LIGHTBOX MODAL CORE ENGINE ---
   const overlay = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   
@@ -12,27 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyBtn = document.getElementById('copy-link-btn');
   const toast = document.getElementById('lightbox-toast');
 
-  let activeGalleryPhotos = [];
+  let photosPool = [];
   let currentGalleryIndex = 0;
 
-  // 1. Core Open View Trigger
-  const openLightboxWithIndex = (index, photosArray) => {
-    activeGalleryPhotos = photosArray;
+  // 1. Open Trigger
+  const openLightboxWithIndex = (index) => {
+    if (photosPool.length === 0) return;
     currentGalleryIndex = index;
     updateLightboxView();
     overlay.style.display = 'flex';
   };
 
-  // 2. Sync State, Source Image & URL Hash
+  // 2. Sync State & URL Hash
   const updateLightboxView = () => {
-    const photo = activeGalleryPhotos[currentGalleryIndex];
+    const photo = photosPool[currentGalleryIndex];
     if (!photo) return;
     
-    // Fallback pass: support both flatplan payload scheme (.fullUrl) and inline dynamic updates
     lightboxImg.src = photo.fullUrl || photo.thumbUrl.replace('/thumb/', '/full/');
     
-    // Manage address bar history and deep-linking hash (#photo-slug)
-    if (photo.filename && photo.context !== 'home') {
+    if (photo.filename) {
       const cleanName = photo.filename.split('.');
       const imgSlug = cleanName[0] || '';
       window.location.hash = imgSlug;
@@ -41,43 +43,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3. Navigation Controls
   const lightboxNext = () => {
-    if (activeGalleryPhotos.length === 0) return;
-    currentGalleryIndex = (currentGalleryIndex + 1) % activeGalleryPhotos.length;
+    if (photosPool.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex + 1) % photosPool.length;
     updateLightboxView();
   };
 
   const lightboxPrev = () => {
-    if (activeGalleryPhotos.length === 0) return;
-    currentGalleryIndex = (currentGalleryIndex - 1 + activeGalleryPhotos.length) % activeGalleryPhotos.length;
+    if (photosPool.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex - 1 + photosPool.length) % photosPool.length;
     updateLightboxView();
   };
 
   const closeLightbox = () => {
     overlay.style.display = 'none';
-    // Clear URL hash cleanly without forcing page layout shifts
     history.pushState("", document.title, window.location.pathname + window.location.search);
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(() => {});
     }
   };
 
-  // 4. Expose Safe Bridge Hooks to External Triggers (Main Mosaic & Series Page)
-  window.ExposureLightbox = {
-    open: openLightboxWithIndex,
-    next: lightboxNext,
-    prev: lightboxPrev,
-    close: closeLightbox
-  };
-
-  // 5. Clicks Bindings
+  // Bind Clicks & Keys
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
   if (prevBtn)  prevBtn.addEventListener('click', lightboxPrev);
   if (nextBtn)  nextBtn.addEventListener('click', lightboxNext);
 
-  // Keyboard controls (Esc, Arrows, F)
   document.addEventListener('keydown', (e) => {
     if (overlay.style.display !== 'flex') return;
-    
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowRight') lightboxNext();
     if (e.key === 'ArrowLeft') lightboxPrev();
@@ -88,28 +79,92 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Fullscreen Icon Button Link
   if (fsBtn) {
     fsBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        overlay.requestFullscreen().catch(() => {});
-      } else {
-        document.exitFullscreen();
-      }
+      if (!document.fullscreenElement) overlay.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
     });
   }
 
-  // Direct Share Link Copy Action
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
-      const shareUrl = window.location.href;
-      navigator.clipboard.writeText(shareUrl).then(() => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
         if (!toast) return;
         toast.classList.add('visible');
-        setTimeout(() => {
-          toast.classList.remove('visible');
-        }, 2000);
+        setTimeout(() => toast.classList.remove('visible'), 2000);
       }).catch(err => console.error('Share link copy failed:', err));
     });
   }
+
+
+  // --- LAYER 2: LIVE DOM POOL REFRESHER ---
+
+  const initGalleryPool = () => {
+    // Universal selector: queries standard tags anywhere in the body context
+    const pageImages = Array.from(document.querySelectorAll('.flatplan_media_grid img, .flatplan_editorial_hero img, #mosaic-grid img'));
+    
+    if (pageImages.length === 0) return false;
+
+    // Compile database pool
+    photosPool = pageImages.map(img => {
+      const thumbUrl = img.src;
+      return {
+        "thumbUrl": thumbUrl,
+        "fullUrl": thumbUrl.replace('/thumb/', '/full/'),
+        "filename": thumbUrl.split('/').pop(),
+        "title": img.alt || ""
+      };
+    });
+
+    // Re-bind click pointers clean execution stream
+    pageImages.forEach((img, currentIndex) => {
+      img.style.cursor = 'pointer';
+      // Remove old listener if exists to prevent double triggers
+      img.removeEventListener('click', img._lightboxClick);
+      
+      img._lightboxClick = () => openLightboxWithIndex(currentIndex);
+      img.addEventListener('click', img._lightboxClick);
+    });
+
+    return true;
+  };
+
+
+  // --- LAYER 3: ROBUST MUTATION TRACKER & ROUTER ---
+  
+  function resolveActivePhotoHash() {
+    const hash = window.location.hash;
+    if (!hash) return;
+
+    const cleanId = decodeURIComponent(hash.substring(1));
+    if (!cleanId) return;
+
+    const targetIndex = photosPool.findIndex(p => p.filename.includes(cleanId));
+
+    if (targetIndex !== -1) {
+      openLightboxWithIndex(targetIndex);
+    } else {
+      // Soft cleanup if deep-linked asset is absent
+      history.replaceState("", document.title, window.location.pathname + window.location.search);
+    }
+  }
+
+  // First pass: scan what is currently available in native HTML layout channel
+  const hasImagesOnLoad = initGalleryPool();
+  if (hasImagesOnLoad) {
+    resolveActivePhotoHash();
+  }
+
+  // Modern Mutation Observer thread to handle asynchronous mosaic streams injections
+  const observer = new MutationObserver(() => {
+    const freshBuildSuccess = initGalleryPool();
+    if (freshBuildSuccess) {
+      resolveActivePhotoHash(); // Trigger evaluation track on successful dynamic mount
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Listen for manual address bar changes
+  window.addEventListener('hashchange', resolveActivePhotoHash);
 });

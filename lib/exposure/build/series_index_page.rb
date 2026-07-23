@@ -37,7 +37,7 @@ module Exposure
             <a href="#{series_url}" aria-label="Open #{series.title}" style="display:block;width:100%;height:100%;text-decoration:none;">
           
             ::: {.cloud-photos-wrapper}
-            #{build_collage_markup(cover_assets, folder_slug, config)}
+            #{build_collage_markup(series)}
             :::
           
             ::: {.cloud-title-block}
@@ -58,16 +58,17 @@ module Exposure
 
       # Compiles layout assets into pure, readable native Pandoc Markdown photo entries
       # Wraps each image inside an explicit fenced div blocks grid matrix
-      def build_collage_markup(assets, folder_slug, config)
+      def build_collage_markup(series)
         slots = %w[pic-base pic-offset-one pic-offset-two pic-offset-three pic-offset-four]
-      
+        assets = series.media_assets.shuffle.take(5)
         assets.map.with_index do |asset, index|
           slot_class = slots[index] || "pic-base"
-          clean_name = File.basename(asset.filename, '.*')
+          # decorated = Decor::Asset.new(asset)
+          filename = asset.target_thumb_name(series.target_assets)
         
           <<~MARKDOWN
             ::: {.cloud-pic .#{slot_class}}
-            ![](assets/images/#{folder_slug}/#{exposure_config.image_thumb_dir}/#{clean_name}.webp)
+            ![](#{ROOT_PATH}#{filename})
             :::
           MARKDOWN
         end.join("\n")

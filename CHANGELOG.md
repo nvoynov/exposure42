@@ -4,22 +4,10 @@ TODO
 
 __Rawww__
 
-- [ ] move favicon and glyphs into assets/ and do :assets to od its job
-- [ ] build => :manifest, :assets, ...
-- [ ] add sw.js, sw_manifest (just in build.rake without Build::SwManfiest)
-
-__nvoynov.dev__
-
-- [ ] apply Rawww changes!
+- fix cannonical url for nested html pages
 
 __nvoynov.art__
 
-- [ ] apply Rawww changes
-- [ ] add og-image
-  - [ ] series/<slug>
-  - [ ] for /index, mabye find good pattern do screenshot?
-- [ ] check Conifg usage
-- [ ] image links
 - [ ] prune assets/images/**/*.webp that not exist in series_dir
 - [ ] check on github/exposure
 - [ ] connnect analytics codes
@@ -28,6 +16,18 @@ __nvoynov.art__
 - [ ] review main series with Gemini and make final PUBLIC.md
 - [ ] buy domain
 - [ ] deploy on domain
+
+__nvoynov.dev__
+
+- [ ] apply Rawww changes!
+
+## 2026-07-23
+
+- ported Rawww v0.2.0 changes
+- designed new images.rake flow series images
+- merged ligthbox.js and series_lightbox.js into lightbox.js
+- desigend new main og_image and personal series og_image
+- provided right image links in SeriesSerializer
 
 ## 2026-07-21
 

@@ -2,7 +2,6 @@
 
 require 'fileutils'
 require './lib/rawww'
-require './lib/exposure'
 
 namespace :site do
   COMPILER = Rawww::Pandoc
@@ -15,7 +14,7 @@ namespace :site do
       hash[page.destination_path] = page
     end
   end
-  
+
   # Helper method to dry up and orchestrate native Pandoc include-before-body injections
   def compile_pandoc_extra_args(target_src)
     extra_args = []
@@ -37,7 +36,7 @@ namespace :site do
   end
 
   desc "Compile all Markdown pages into production HTML website"
-  task :compile do
+  task :compile => ['manifest:sync', 'images:sync'] do
     # 1. Evaluate the pages map FRESH, after manifest:sync has completed its execution
     pages_map = targets_map
     
@@ -60,7 +59,9 @@ namespace :site do
         current_root = ENV['RAWWW_PRODUCTION'] == 'true' ? config.production_root_path : config.root_path
 
         base_domain = config.site_url.chomp('/')
-        page_path = page.slug == 'index' ? "#{current_root}/" : "#{current_root}/#{page.slug}.html"
+        page_path = "#{current_root}/"
+        page_path << "#{destination_path.gsub(%r{#{Rawww::PUBLIC_DIR}/}, '')}" \
+          if page.slug != 'index'
         calculated_canonical = "#{base_domain}#{page_path}"
         extra_args = compile_pandoc_extra_args(destination_path)
 
@@ -81,32 +82,37 @@ namespace :site do
     end
   end
 
-  SW_MANIFEST = File.join(Rawww::PUBLIC_DIR, 'sw_manifest.json')
-  desc "Build SW manifest"
-  file SW_MANIFEST do |t|
-    raw = Exposure::BuildSwManifest.call(Rawww::PUBLIC_DIR)
+  CACHE_MANIFEST = File.join(Rawww::PUBLIC_DIR, 'cache_manifest.json')
+  desc "Build cache-manifest.json"
+  file CACHE_MANIFEST do |t|
+    raw = Rawww::BuildCacheManifest.()
     File.write(t.name, raw)
-    puts "  » SW mainifest: -> #{t.name}"
+    puts "  » cache mainifest: -> #{t.name}"
   end
 
-  SW_SRC = File.join('src', 'sw.js')
-  SW_TRG = File.join(Rawww::PUBLIC_DIR, 'sw.js')
-  file SW_TRG do |t|
-    FileUtils.cp SW_SRC, SW_TRG
+  SERVICE_WORKER_SRC = File.join('src', 'sw.js')
+  SERVICE_WORKER = File.join(Rawww::PUBLIC_DIR, 'sw.js')
+  file SERVICE_WORKER do |t|
+    FileUtils.cp SERVICE_WORKER_SRC, SERVICE_WORKER
   end
+
+  task :build => [:compile, CACHE_MANIFEST, SERVICE_WORKER]
 
   desc "Clean compiled site pages"
   task :clean do
     # Dynamically find files to clean safely
-    targets_map.keys.each do |file|
-      if File.exist?(file)
-        File.delete(file)
-        puts "  » deleted: #{file}"
-      end
+    targets = targets_map.keys + [CACHE_MANIFEST, SERVICE_WORKER] 
+    targets.each do |file|
+      next unless File.exist?(file)
+
+      File.delete(file)
+      puts "  » deleted: #{file}"
     end
   end
 end
 
 # Reset top-level build chain pipelines
-task :build => ['manifest:sync', 'assets:copy', 'site:compile', SW_MANIFEST, SW_TRG, 'seo:generate']
+task :build => ['assets:copy', 'site:build',  'seo:generate']
+# task :build => ['images:sync', 'site:build',  'seo:generate']
 task :clean => ['site:clean', 'manifest:clean', 'assets:clean', 'seo:clean']
+

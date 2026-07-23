@@ -5,20 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- Standard Primary SEO Layer -->
-  <title>$if(title)$$title$ | $author$ Exposure$else$$author$ Exposure$endif$</title>
+  <title>$if(title)$$title$ | $site_title$$else$$site_title$$endif$</title>
   $if(description)$<meta name="description" content="$description$">$endif$
   
   <!-- Absolute Canonical Anchor: Automated by Rake and calculated per page model -->
   <link rel="canonical" href="$canonical_url$">  
   
-  <!-- Core Open Graph Social Metadata Layer -->
-  <meta property="og:site_name" content="$author$ Exposure">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:type" content="$if(page_type)$$page_type$$else$website$endif$">
-  <meta property="og:title" content="$if(title)$$title$ | $author$ Exposure$else$$author$ Exposrue$endif$">
-  $if(description)$<meta property="og:description" content="$description$">$endif$
-  <meta property="og:url" content="$if(site_base_url)$$site_base_url$$endif$$if(url_path)$$url_path$$endif$">
-  <meta property="og:image" content="$if(site_base_url)$$site_base_url$$endif$/$if(og_image_source)$$og_image_source$$else$og_main_cover.jpg$endif$">
+  <!-- Open Graph / Facebook Production Layer -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="$canonical_url$">
+  <meta property="og:title" content="$if(title)$$title$ | $site_title$$else$$site_title$$endif$">
+  <meta property="og:description" content="$description$">
+  <!-- <meta property="og:image" content="$site_url$$root_path$/assets/og_image.png"> -->
+$if(og_image)$
+  <meta property="og:image" content="$site_url$$root_path$$og_image$">
+$else$
+  <meta property="og:image" content="$site_url$$root_path$/assets/og_image.png">
+$endif$
+
 
   <!-- Branding Visual Identities Core Assets -->
   <link rel="icon" type="image/svg+xml" href="$root_path$/assets/favicon.svg">

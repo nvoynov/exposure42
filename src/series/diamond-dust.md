@@ -6,6 +6,7 @@ location: 'Kyiv, Ukraine'
 keywords: ["nature", "close-up", "macro"]
 description: 'A photographic series exploration'
 page_type: article
+og_image: /assets/series/diamond-dust/og_card.png
 ---
 
 
@@ -23,13 +24,13 @@ Locked within the ice, fallen autumn leaves and fragments of pine bark became an
 :::
 
 ::: {.flatplan_media_grid}
-![Fallback caption](../assets/images/diamond-dust/thumb/P1001468.webp)
-![Fallback caption](../assets/images/diamond-dust/thumb/P1001464.webp)
-![Fallback caption](../assets/images/diamond-dust/thumb/P1001475.webp)
-![Fallback caption](../assets/images/diamond-dust/thumb/P1001474.webp)
-![Fallback caption](../assets/images/diamond-dust/thumb/P1001476.webp)
-![Fallback caption](../assets/images/diamond-dust/thumb/P1001460.webp)
-![Fallback caption](../assets/images/diamond-dust/thumb/P1001463.webp)
-![Fallback caption](../assets/images/diamond-dust/thumb/P1001467.webp)
+![](/assets/series/diamond-dust/thumb/P1001468.webp)
+![](/assets/series/diamond-dust/thumb/P1001464.webp)
+![](/assets/series/diamond-dust/thumb/P1001475.webp)
+![](/assets/series/diamond-dust/thumb/P1001474.webp)
+![](/assets/series/diamond-dust/thumb/P1001476.webp)
+![](/assets/series/diamond-dust/thumb/P1001460.webp)
+![](/assets/series/diamond-dust/thumb/P1001463.webp)
+![](/assets/series/diamond-dust/thumb/P1001467.webp)
 :::
 :::

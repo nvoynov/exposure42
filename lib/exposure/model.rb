@@ -24,23 +24,18 @@ module Exposure
         all_sources.uniq.shuffle.first(count)
       end
 
-      # @return [Array<String>] unified compilation targets for all full-size assets
-      def all_full_webp_targets
-        series.flat_map(&:full_webp_targets)
+      def full_webp_targets
+        series
+          .flat_map(&:media_assets_full)
+          .reduce({}, :merge)
+      end
+      
+      def thumb_webp_targets
+        series
+          .flat_map(&:media_assets_thumb)
+          .reduce({}, :merge)
       end
 
-      # @return [Array<String>] unified compilation targets for all thumbnail assets
-      def all_thumb_webp_targets
-        series.flat_map(&:thumb_webp_targets)
-      end
-
-      # @return [String] absolute production target path for the main website OG cover
-      def main_og_cover_target
-        File.join(
-          Rawww::Config.instance.www_dir,
-          Exposure::Config.instance.og_image
-        )
-      end
     end
 
   end

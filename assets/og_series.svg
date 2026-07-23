@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Fonts and typography styles for Series page -->
+    <style>
+      @import url('https://googleapis.com');
+      .series-title { font-family: 'Inter', sans-serif; font-weight: 200; fill: #1a1a1a; letter-spacing: 0.4em; font-size: 32px; text-anchor: middle; }
+      .print-base { fill: #ffffff; stroke: #e3e1dc; stroke-width: 0.5; }
+      .print-image-area { fill: #faf9f6; stroke: #e8e6e0; stroke-width: 0.5; }
+      .fine-art-meta { stroke: #777777; stroke-width: 0.8; fill: none; opacity: 0.45; }
+      .fine-art-dot { fill: #777777; opacity: 0.45; }
+    </style>
+
+    <!-- Enhanced shadows for scaled up art prints -->
+    <filter id="print-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.08" />
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.05" />
+    </filter>
+
+    
+    <filter id="bg-paper-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="3" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Muted gallery background canvas -->
+  <rect width="1200" height="630" fill="#f4f3ef" />
+
+  <!-- ==========================================
+       BACKGROUND CHAOS: SCATTERED PAPERS (Identical to maintain brand system)
+       ========================================== -->
+  <g fill="#faf9f5" stroke="#e6e4df" stroke-width="0.5">
+    <rect x="-40" y="120" width="340" height="260" filter="url(#bg-paper-shadow)" transform="rotate(-14, 130, 250)" />
+    <rect x="90" y="50" width="260" height="340" filter="url(#bg-paper-shadow)" transform="rotate(10, 220, 220)" />
+    <rect x="-10" y="-30" width="290" height="230" filter="url(#bg-paper-shadow)" transform="rotate(18, 135, 85)" />
+    <rect x="280" y="20" width="320" height="240" filter="url(#bg-paper-shadow)" transform="rotate(-8, 440, 140)" />
+    <rect x="380" y="-20" width="310" height="240" filter="url(#bg-paper-shadow)" transform="rotate(22, 535, 100)" />
+    <rect x="440" y="400" width="360" height="270" filter="url(#bg-paper-shadow)" transform="rotate(-15, 620, 535)" />
+    <rect x="240" y="200" width="320" height="240" filter="url(#bg-paper-shadow)" transform="rotate(35, 400, 320)" />
+    <rect x="110" y="420" width="280" height="280" filter="url(#bg-paper-shadow)" transform="rotate(12, 250, 560)" />
+    <rect x="840" y="60" width="270" height="350" filter="url(#bg-paper-shadow)" transform="rotate(-6, 975, 235)" />
+    <rect x="760" y="-50" width="330" height="220" filter="url(#bg-paper-shadow)" transform="rotate(-19, 925, 60)" />
+    <rect x="780" y="360" width="270" height="270" filter="url(#bg-paper-shadow)" transform="rotate(-11, 915, 495)" />
+  </g>
+
+  <!-- ==========================================
+       TOP LAYER: SERIES TITLE
+       ========================================== -->
+  <g transform="translate(600, 85)">
+    <text y="0" class="series-title">SERIES TITLE</text>
+  </g>
+
+  <!-- ==========================================
+       MIDDLE LAYER: SCALED UP TRIPTYCH TRIP/COLLAGE (+25% SIZE)
+       ========================================== -->
+
+  <!-- PRINT 1: Background Left (Vertical) -->
+  <g filter="url(#print-shadow)" transform="translate(100, 150) rotate(-7, 137, 187)">
+    <rect width="275" height="375" rx="1" class="print-base" />
+    <rect x="30" y="30" width="215" height="285" class="print-image-area" />
+    <!-- Fine-art geometric minimal content -->
+    <line x1="30" y1="172" x2="245" y2="172" class="fine-art-meta" stroke-dasharray="2 2" />
+    <circle cx="137" cy="172" r="50" class="fine-art-meta" />
+  </g>
+
+  <!-- PRINT 2: Background Right (Horizontal) -->
+  <g filter="url(#print-shadow)" transform="translate(730, 190) rotate(10, 200, 137)">
+    <rect width="400" height="275" rx="1" class="print-base" />
+    <rect x="30" y="30" width="340" height="185" class="print-image-area" />
+    <!-- Fine-art content: Minimal grid alignment markers -->
+    <path d="M 60,122 L 340,122 M 200,60 L 200,185" class="fine-art-meta" stroke-width="0.4" />
+    <rect x="180" y="102" width="40" height="40" class="fine-art-meta" />
+  </g>
+
+  <!-- PRINT 3: Mid Layer Center-Left (Square) -->
+  <g filter="url(#print-shadow)" transform="translate(310, 210) rotate(4, 156, 156)">
+    <rect width="312" height="312" rx="1" class="print-base" />
+    <rect x="35" y="35" width="242" height="212" class="print-image-area" />
+    <!-- Fine-art content: Abstract framing corners -->
+    <path d="M 60,75 L 60,60 L 75,60 M 250,60 L 265,60 L 265,75 M 265,205 L 265,220 L 250,220 M 75,220 L 60,220 L 60,205" class="fine-art-meta" />
+  </g>
+
+  <!-- PRINT 4: Mid Layer Center-Right (Vertical Anchor) -->
+  <g filter="url(#print-shadow)" transform="translate(560, 130) rotate(-3, 143, 200)">
+    <rect width="287" height="400" rx="1" class="print-base" />
+    <rect x="30" y="30" width="227" height="310" class="print-image-area" />
+    <!-- Fine-art content: Fine technical horizontal sequence -->
+    <line x1="60" y1="185" x2="227" y2="185" class="fine-art-meta" />
+    <line x1="60" y1="172" x2="227" y2="172" class="fine-art-meta" stroke-width="0.3" />
+    <line x1="60" y1="198" x2="227" y2="198" class="fine-art-meta" stroke-width="0.3" />
+  </g>
+
+  <!-- PRINT 5: Top Layer Foreground Center (Golden Proportions) -->
+  <g filter="url(#print-shadow)" transform="translate(420, 175) rotate(2, 175, 125)">
+    <rect width="350" height="250" rx="1" class="print-base" />
+    <rect x="25" y="25" width="300" height="185" class="print-image-area" />
+    <!-- Fine-art content: Matrix of technical focus dots -->
+    <circle cx="75" cy="117" r="2" class="fine-art-dot" />
+    <circle cx="175" cy="60" r="2" class="fine-art-dot" />
+    <circle cx="175" cy="117" r="3" class="fine-art-dot" />
+    <circle cx="175" cy="175" r="2" class="fine-art-dot" />
+    <circle cx="275" cy="117" r="2" class="fine-art-dot" />
+  </g>
+
+  <!-- ==========================================
+       BOTTOM CENTER RESERVED SPACE FOR WATERMARK COMPOSITING
+       ========================================== -->
+  <!-- Target Center Coordinates for Series Watermark overlay: X=600, Y=565 -->
+  <!-- Clean central pocket tailored to perfectly match the main page watermark rhythm -->
+
+</svg>
+

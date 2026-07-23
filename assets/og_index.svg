@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Fonts and core typography styles -->
+    <style>
+      @import url('https://googleapis.com');
+      .brand-text { font-family: 'Inter', sans-serif; font-weight: 300; fill: #1a1a1a; letter-spacing: 0.35em; font-size: 28px; text-anchor: middle; }
+      .sub-text { font-family: 'Inter', sans-serif; font-weight: 400; fill: #666666; letter-spacing: 0.5em; font-size: 13px; text-anchor: middle; }
+      .frame-base { stroke: #1a1a1a; stroke-width: 1.5; fill: #ffffff; }
+      .paspartu-bevel { stroke: #cfcbc4; stroke-width: 1; fill: #fbfbfa; }
+      .pattern-line { stroke: #666666; stroke-width: 0.8; fill: none; opacity: 0.5; }
+      .pattern-grid { stroke: #777777; stroke-width: 0.5; fill: none; opacity: 0.3; stroke-dasharray: 2 2; }
+    </style>
+
+    <!-- Deep, readable shadows for the artwork frames -->
+    <filter id="frame-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000000" flood-opacity="0.14" />
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.08" />
+    </filter>
+
+    <!-- Light shadow for the scattered background papers to build depth -->
+    <filter id="paper-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="3" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.05" />
+    </filter>
+  </defs>
+
+  <!-- Muted gallery background canvas -->
+  <rect width="1200" height="630" fill="#f4f3ef" />
+
+  <!-- ==========================================
+       BACKGROUND CHAOS: SCATTERED PAPERS (+30% DENSITY)
+       ========================================== -->
+  <g fill="#faf9f5" stroke="#e6e4df" stroke-width="0.5">
+    <!-- Base layer of background chaos -->
+    <rect x="-40" y="120" width="340" height="260" filter="url(#paper-shadow)" transform="rotate(-14, 130, 250)" />
+    <rect x="90" y="50" width="260" height="340" filter="url(#paper-shadow)" transform="rotate(10, 220, 220)" />
+    
+    <!-- New added sheets to fill central and top-left gaps -->
+    <rect x="-10" y="-30" width="290" height="230" filter="url(#paper-shadow)" transform="rotate(18, 135, 85)" />
+    <rect x="280" y="20" width="320" height="240" filter="url(#paper-shadow)" transform="rotate(-8, 440, 140)" />
+    
+    <!-- Center and bottom-mid sheets -->
+    <rect x="380" y="-20" width="310" height="240" filter="url(#paper-shadow)" transform="rotate(22, 535, 100)" />
+    <rect x="440" y="400" width="360" height="270" filter="url(#paper-shadow)" transform="rotate(-15, 620, 535)" />
+    <rect x="240" y="200" width="320" height="240" filter="url(#paper-shadow)" transform="rotate(35, 400, 320)" />
+    
+    <!-- New added sheets to fill bottom-left and central-low gaps -->
+    <rect x="110" y="420" width="280" height="280" filter="url(#paper-shadow)" transform="rotate(12, 250, 560)" />
+    
+    <!-- Right side gallery cluster -->
+    <rect x="840" y="60" width="270" height="350" filter="url(#paper-shadow)" transform="rotate(-6, 975, 235)" />
+    <rect x="950" y="240" width="320" height="250" filter="url(#paper-shadow)" transform="rotate(16, 1110, 365)" />
+    
+    <!-- New added sheet to fill top-right canvas edge -->
+    <rect x="760" y="-50" width="330" height="220" filter="url(#paper-shadow)" transform="rotate(-19, 925, 60)" />
+    
+    <rect x="800" y="380" width="290" height="290" filter="url(#paper-shadow)" transform="rotate(-11, 945, 525)" />
+    <rect x="710" y="140" width="240" height="320" filter="url(#paper-shadow)" transform="rotate(-28, 830, 300)" />
+  </g>
+
+  <!-- ==========================================
+       TOP LAYER: BRAND LOGO & TYPOGRAPHY
+       ========================================== -->
+  <g transform="translate(600, 75)">
+    <text y="0" class="brand-text">NIKOLAY VOYNOV</text>
+    <g transform="translate(0, 24)">
+      <line x1="-140" y1="0" x2="-40" y2="0" stroke="#666666" stroke-width="0.8" opacity="0.6" />
+      <text y="4" class="sub-text">EXPOSURE</text>
+      <line x1="40" y1="0" x2="140" y2="0" stroke="#666666" stroke-width="0.8" opacity="0.6" />
+    </g>
+  </g>
+
+  <!-- ==========================================
+       MIDDLE LAYER: THE BALANCED TRIPTYCH (WITH SQUARE CENTER)
+       ========================================== -->
+       
+  <!-- FRAME 1: ABSTRACT RAY PATTERN (Vertical, Left) -->
+  <g filter="url(#frame-shadow)" transform="translate(160, 160)">
+    <rect width="240" height="330" rx="2" class="frame-base" />
+    <rect x="40" y="40" width="160" height="250" class="paspartu-bevel" />
+    <!-- Fine technical ray mesh -->
+    <g transform="translate(40, 40)">
+      <clipPath id="frame1-clip"><rect width="160" height="250" /></clipPath>
+      <g clip-path="url(#frame1-clip)">
+        <circle cx="80" cy="125" r="90" class="pattern-grid" />
+        <circle cx="80" cy="125" r="60" class="pattern-grid" />
+        <circle cx="80" cy="125" r="30" class="pattern-grid" />
+        <line x1="0" y1="0" x2="160" y2="250" class="pattern-line" />
+        <line x1="160" y1="0" x2="0" y2="250" class="pattern-line" />
+        <line x1="80" y1="0" x2="80" y2="250" class="pattern-line" />
+        <line x1="0" y1="125" x2="160" y2="125" class="pattern-line" />
+      </g>
+    </g>
+  </g>
+
+  <!-- FRAME 2: CONCENTRIC MATRIX PATTERN (Perfect Square, Center Anchor) -->
+  <g filter="url(#frame-shadow)" transform="translate(435, 160)">
+    <rect width="330" height="330" rx="2" class="frame-base" />
+    <rect x="45" y="45" width="240" height="240" class="paspartu-bevel" />
+    <!-- Fine concentric optical geometric pattern -->
+    <g transform="translate(45, 45)">
+      <clipPath id="frame2-clip"><rect width="240" height="240" /></clipPath>
+      <g clip-path="url(#frame2-clip)">
+        <!-- Fine mesh grid background -->
+        <path d="M 0,30 L 240,30 M 0,60 L 240,60 M 0,90 L 240,90 M 0,120 L 240,120 M 0,150 L 240,150 M 0,180 L 240,180 M 0,210 L 240,210" class="pattern-grid" />
+        <path d="M 30,0 L 30,240 M 60,0 L 60,240 M 90,0 L 90,240 M 120,0 L 120,240 M 150,0 L 150,240 M 180,0 L 180,240 M 210,0 L 210,240" class="pattern-grid" />
+        <!-- Concentric structural squares -->
+        <rect x="40" y="40" width="160" height="160" class="pattern-line" stroke-width="0.6" />
+        <rect x="60" y="60" width="120" height="120" class="pattern-line" stroke-width="1" />
+        <rect x="80" y="80" width="80" height="80" class="pattern-line" stroke-width="0.6" stroke-dasharray="4 2" />
+        <circle cx="120" cy="120" r="25" class="pattern-line" stroke-width="1.2" />
+      </g>
+    </g>
+  </g>
+
+  <!-- FRAME 3: WAVE/INTERFERENCE PATTERN (Vertical, Right) -->
+  <g filter="url(#frame-shadow)" transform="translate(800, 160)">
+    <rect width="240" height="330" rx="2" class="frame-base" />
+    <rect x="40" y="40" width="160" height="250" class="paspartu-bevel" />
+    <!-- Fine geometric wave / refraction lines -->
+    <g transform="translate(40, 40)">
+      <clipPath id="frame3-clip"><rect width="160" height="250" /></clipPath>
+      <g clip-path="url(#frame3-clip)">
+        <path d="M -20,60 Q 40,20 80,60 T 180,60" class="pattern-line" />
+        <path d="M -20,90 Q 40,50 80,90 T 180,90" class="pattern-line" />
+        <path d="M -20,120 Q 40,80 80,120 T 180,120" class="pattern-line" stroke-width="1.5" />
+        <path d="M -20,150 Q 40,110 80,150 T 180,150" class="pattern-line" />
+        <path d="M -20,180 Q 40,140 80,180 T 180,180" class="pattern-line" />
+        <!-- Technical cross hair markers -->
+        <line x1="80" y1="20" x2="80" y2="230" class="pattern-grid" />
+        <line x1="20" y1="125" x2="140" y2="125" class="pattern-grid" />
+      </g>
+    </g>
+  </g>
+
+  <!-- ==========================================
+       BOTTOM RESERVED SPACE FOR WATERMARK COMPOSITING
+       ========================================== -->
+  <!-- Target Center Coordinates for Watermark overlay: X=600, Y=565 -->
+
+</svg>
+

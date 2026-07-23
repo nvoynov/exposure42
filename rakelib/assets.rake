@@ -2,20 +2,41 @@ require 'fileutils'
 require './lib/rawww'
 
 namespace :assets do
-  # Standard asset tracks setup
-  ASSET_SOURCES = FileList['src/assets/**/*'].reject { |f| File.directory?(f) }
+  # 1. Collect only existing static files (CSS, JS, favicon, etc.)
+  # Explicitly ignore any dynamic full/thumb image directories
+  ASSET_SOURCES = FileList['src/assets/**/*']
+    .exclude(%r{/(full|thumb)/})
+    .reject { |f| File.directory?(f) }
+
+  # 2. Map source paths from 'src/' into the public directory (e.g., 'www/')
   ASSET_TARGETS = ASSET_SOURCES.pathmap("%{^src/,#{Rawww::PUBLIC_DIR}/}p")
 
   desc "Copy static assets (CSS, JS, images, favicon) to the build directory"
-  # task :copy => (ASSET_TARGETS + [FAVICON_TRG])
   task :copy => ASSET_TARGETS
 
-  # Rule for standard modular assets mapping
-  rule(%r{^#{Rawww::PUBLIC_DIR}/assets/}) do |t|
-    source = t.name.sub(/^#{Rawww::PUBLIC_DIR}/, 'src')
+  # 3. Secure rule with a strict dynamic prerequisite check
+  # It intercepts only targets that actually map back to an existing file in 'src/assets/'
+  rule(%r{^#{Rawww::PUBLIC_DIR}/assets/} => [
+    ->(t_name) {
+      source = t_name.sub(/^#{Rawww::PUBLIC_DIR}/, 'src')
+      
+      # Stop-word: if the target is a generated webp image, ignore it here.
+      # This prevents conflict with manifest.rake rules.
+      if t_name =~ %r{/(full|thumb)/.*webp$}
+        ""
+      elsif File.exist?(source)
+        source
+      else
+        "" # Return empty string so Rake knows this rule doesn't handle this file
+      end
+    }
+  ]) do |t|
+    # Guard against empty source definitions
+    next if t.source.empty?
+
     FileUtils.mkdir_p(File.dirname(t.name))
-    FileUtils.cp(source, t.name)
-    puts "  » copy: #{source} -> #{t.name}"
+    FileUtils.cp(t.source, t.name)
+    puts "  » copy: #{t.source} -> #{t.name}"
   end
 
   desc "Clean compiled assets"

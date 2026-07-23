@@ -27,15 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
           allPhotosPool.push({
             "slug": album.album_slug,
             "filename": photo.filename,
-            "thumbUrl": `${baseUrl}/assets/images/${album.album_slug}/thumb/${photo.filename}`,
-            "fullUrl": `${baseUrl}/assets/images/${album.album_slug}/full/${photo.filename}`,
+            "thumbUrl": `${baseUrl}/assets/series/${album.album_slug}/thumb/${photo.filename}`,
+            "fullUrl": `${baseUrl}/assets/series/${album.album_slug}/full/${photo.filename}`,
             "title": photo.title,
             // Keep a clean reference to all fellow sibling photos inside the same series container
             "albumPhotosRef": album.photos.map(p => ({
               "slug": album.album_slug,
               "filename": p.filename,
-              "thumbUrl": `${baseUrl}/assets/images/${album.album_slug}/thumb/${p.filename}`,
-              "fullUrl": `${baseUrl}/assets/images/${album.album_slug}/full/${p.filename}`,
+              "thumbUrl": `${baseUrl}/assets/series/${album.album_slug}/thumb/${p.filename}`,
+              "fullUrl": `${baseUrl}/assets/series/${album.album_slug}/full/${p.filename}`,
               "title": p.title
             }))
           });

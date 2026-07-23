@@ -16,8 +16,13 @@ self.addEventListener('install', (event) => {
   const assetsToPrecache = [
     getAbsPath('/'),
     getAbsPath('/index.html'),
-    getAbsPath('/assets/css/style.css'), // Updated to match the new Zenweb CSS modular path
-    getAbsPath('/sw_manifest.json')
+    getAbsPath('/cache_manifest.json'),
+    getAbsPath('/assets/css/style.css'),
+    getAbsPath('/assets/css/modules/base.css'),
+    getAbsPath('/assets/css/modules/content.css'),
+    getAbsPath('/assets/css/modules/header.css'),
+    getAbsPath('/assets/css/modules/about.css'),
+    getAbsPath('/assets/css/modules/error.css')
   ];
 
   event.waitUntil(
@@ -33,8 +38,7 @@ self.addEventListener('activate', (event) => {
     // Force immediate initialization of the images cache database context
     caches.open(IMAGE_CACHE_NAME).then((imageCache) => {
       
-      // FIXED: Dropped brittle query strings parameters (?t=), enforcing pure HTTP headers validation instead
-      return fetch(getAbsPath('/assets-manifest.json'), { cache: 'no-store' })
+      return fetch(getAbsPath('/cache_manifest.json'), { cache: 'no-store' })
         .then((response) => {
           if (!response.ok) throw new Error(`Manifest fetch failed with status: ${response.status}`);
           return response.json();
@@ -82,7 +86,6 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
 
-  // FIXED: Strict clean regular expression matching standard image extensions endings
   if (requestUrl.pathname.match(/\.(webp|jpg|jpeg|png)$/i)) {
     event.respondWith(
       caches.open(IMAGE_CACHE_NAME).then((imageCache) => {

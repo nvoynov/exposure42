@@ -11,23 +11,23 @@ description: Personal photography journeys and visual narratives exploration.
 
 ::: {.cloud-photos-wrapper}
 ::: {.cloud-pic .pic-base}
-![](assets/images/vaseline/thumb/P1001495.webp)
+![](/assets/series/vaseline/thumb/P1012097.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-one}
-![](assets/images/vaseline/thumb/P1011861.webp)
+![](/assets/series/vaseline/thumb/P1001495.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-two}
-![](assets/images/vaseline/thumb/P1012097.webp)
+![](/assets/series/vaseline/thumb/P1001501.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-three}
-![](assets/images/vaseline/thumb/P1011859.webp)
+![](/assets/series/vaseline/thumb/P1011859.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-four}
-![](assets/images/vaseline/thumb/P1001501.webp)
+![](/assets/series/vaseline/thumb/P1001505.webp)
 :::
 
 :::
@@ -46,23 +46,23 @@ description: Personal photography journeys and visual narratives exploration.
 
 ::: {.cloud-photos-wrapper}
 ::: {.cloud-pic .pic-base}
-![](assets/images/diamond-dust/thumb/P1001468.webp)
+![](/assets/series/diamond-dust/thumb/P1001460.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-one}
-![](assets/images/diamond-dust/thumb/P1001464.webp)
+![](/assets/series/diamond-dust/thumb/P1001463.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-two}
-![](assets/images/diamond-dust/thumb/P1001475.webp)
+![](/assets/series/diamond-dust/thumb/P1001474.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-three}
-![](assets/images/diamond-dust/thumb/P1001474.webp)
+![](/assets/series/diamond-dust/thumb/P1001464.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-four}
-![](assets/images/diamond-dust/thumb/P1001476.webp)
+![](/assets/series/diamond-dust/thumb/P1001476.webp)
 :::
 
 :::

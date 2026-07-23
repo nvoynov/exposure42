@@ -35,7 +35,7 @@ module Exposure
           directory_path: dir_path,
           manifest_name: filename)
       
-        Series.new(publication, manifest_path:) # => decorated series
+        Decor::Series.new(publication, manifest_path:) # => decorated series
       end
     end
   end

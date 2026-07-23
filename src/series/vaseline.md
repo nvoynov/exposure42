@@ -6,6 +6,7 @@ location: ''
 keywords: []
 description: ''
 page_type: article
+og_image: /assets/series/vaseline/og_card.png
 ---
 
 
@@ -17,11 +18,11 @@ page_type: article
 :::
 
 ::: {.flatplan_media_grid}
-![afternoon on Wednesday, in the height of the summer heat](../assets/images/vaseline/thumb/P1001495.webp)
-![Fallback caption](../assets/images/vaseline/thumb/P1011861.webp)
-![Fallback caption](../assets/images/vaseline/thumb/P1012097.webp)
-![Fallback caption](../assets/images/vaseline/thumb/P1011859.webp)
-![Fallback caption](../assets/images/vaseline/thumb/P1001501.webp)
-![Fallback caption](../assets/images/vaseline/thumb/P1001505.webp)
+![](/assets/series/vaseline/thumb/P1001495.webp)
+![](/assets/series/vaseline/thumb/P1011861.webp)
+![](/assets/series/vaseline/thumb/P1012097.webp)
+![](/assets/series/vaseline/thumb/P1011859.webp)
+![](/assets/series/vaseline/thumb/P1001501.webp)
+![](/assets/series/vaseline/thumb/P1001505.webp)
 :::
 :::

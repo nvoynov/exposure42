@@ -1,15 +1,14 @@
 ---
 master_series_dir: "/home/nick/Photo/WebAlbums"
+target_series_dir: "/assets/series"
+target_series_full: "full"
+target_series_thumb: "thumb"
 public_manifest_name: PUBLIC.md
 hidden_manifest_name: SERIES.md
-site_title: Exposure
-site_author: Author
-og_image: og_card.jpg
+og_image: og_card.png
 mosaic_desktop_limit: 6
 mosaic_mobile_limit: 5
 image_full_quality: 85
 image_thumb_quality: 80
 image_thumb_max_side: 450
-image_full_dir: full
-image_thumb_dir: thumb
 watermark_name: watermark.png

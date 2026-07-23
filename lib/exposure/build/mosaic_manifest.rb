@@ -28,18 +28,13 @@ module Exposure
         end
 
         manifest_payload = {
-          "thumb_dir" => exposure_config.image_thumb_dir,
+          "thumb_dir" => exposure_config.target_series_full,
           "series" => gallery_data.values
         }
 
         # TODO: having final manifest.rake, maybe JSON here and return Hash
         #       let mainifest.rake to decide how an where to store it
         JSON.pretty_generate(manifest_payload)
-
-        # output_dir = File.join(config.www_dir, "assets")
-        # FileUtils.mkdir_p(output_dir)      
-        # destination_path = File.join(output_dir, "manifest.json")
-        # File.write(destination_path, JSON.pretty_generate(manifest_payload))
       end
     end
   end
