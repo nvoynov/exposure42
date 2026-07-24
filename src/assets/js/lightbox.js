@@ -3,7 +3,6 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- LAYER 1: LIGHTBOX MODAL CORE ENGINE ---
   const overlay = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   
@@ -16,12 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyBtn = document.getElementById('copy-link-btn');
   const toast = document.getElementById('lightbox-toast');
 
-  let photosPool = [];
+  // ХРАНИЛИЩА РАЗДЕЛЕНЫ:
+  let domParsedPool = [];       // Сюда MutationObserver собирает картинки из HTML
+  let currentActivePool = [];   // А этот пул ЛИСТАЕТ лайтбокс (может быть альбомом)
   let currentGalleryIndex = 0;
 
-  // 1. Open Trigger
-  const openLightboxWithIndex = (index) => {
-    if (photosPool.length === 0) return;
+  // 1. Open Trigger (Теперь железобетонный)
+  const openLightboxWithIndex = (index, customPhotosArray = null) => {
+    // Если мозаика передала скрытый альбом — берем его, если нет — берем слепок DOM страницы
+    currentActivePool = customPhotosArray ? customPhotosArray : [...domParsedPool];
+    
+    if (currentActivePool.length === 0) return;
     currentGalleryIndex = index;
     updateLightboxView();
     overlay.style.display = 'flex';
@@ -29,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 2. Sync State & URL Hash
   const updateLightboxView = () => {
-    const photo = photosPool[currentGalleryIndex];
+    const photo = currentActivePool[currentGalleryIndex];
     if (!photo) return;
     
     lightboxImg.src = photo.fullUrl || photo.thumbUrl.replace('/thumb/', '/full/');
@@ -41,16 +45,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // 3. Navigation Controls
+  // 3. Navigation Controls (работают с изолированным активным пулом)
   const lightboxNext = () => {
-    if (photosPool.length === 0) return;
-    currentGalleryIndex = (currentGalleryIndex + 1) % photosPool.length;
+    if (currentActivePool.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex + 1) % currentActivePool.length;
     updateLightboxView();
   };
 
   const lightboxPrev = () => {
-    if (photosPool.length === 0) return;
-    currentGalleryIndex = (currentGalleryIndex - 1 + photosPool.length) % photosPool.length;
+    if (currentActivePool.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex - 1 + currentActivePool.length) % currentActivePool.length;
     updateLightboxView();
   };
 
@@ -100,13 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- LAYER 2: LIVE DOM POOL REFRESHER ---
 
   const initGalleryPool = () => {
-    // Universal selector: queries standard tags anywhere in the body context
     const pageImages = Array.from(document.querySelectorAll('.flatplan_media_grid img, .flatplan_editorial_hero img, #mosaic-grid img'));
-    
     if (pageImages.length === 0) return false;
 
-    // Compile database pool
-    photosPool = pageImages.map(img => {
+    // Скрипт обновляет ТОЛЬКО слепок страницы, не трогая то, что сейчас открыто в лайтбоксе
+    domParsedPool = pageImages.map(img => {
       const thumbUrl = img.src;
       return {
         "thumbUrl": thumbUrl,
@@ -116,12 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     });
 
-    // Re-bind click pointers clean execution stream
+    // Привязываем клики
     pageImages.forEach((img, currentIndex) => {
       img.style.cursor = 'pointer';
-      // Remove old listener if exists to prevent double triggers
       img.removeEventListener('click', img._lightboxClick);
-      
       img._lightboxClick = () => openLightboxWithIndex(currentIndex);
       img.addEventListener('click', img._lightboxClick);
     });
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
 
-  // --- LAYER 3: ROBUST MUTATION TRACKER & ROUTER ---
+// --- LAYER 3: ROBUST MUTATION TRACKER & ROUTER ---
   
   function resolveActivePhotoHash() {
     const hash = window.location.hash;
@@ -139,32 +139,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const cleanId = decodeURIComponent(hash.substring(1));
     if (!cleanId) return;
 
-    const targetIndex = photosPool.findIndex(p => p.filename.includes(cleanId));
+    // Ищем картинку в актуальном пуле, который СЕЙЧАС открыт в лайтбоксе, 
+    // либо в слепке страницы, если лайтбокс закрыт
+    const activePoolToSearch = overlay.style.display === 'flex' ? currentActivePool : domParsedPool;
+    const targetIndex = activePoolToSearch.findIndex(p => p.filename.includes(cleanId));
 
     if (targetIndex !== -1) {
-      openLightboxWithIndex(targetIndex);
+      // Если мы уже смотрим этот альбом, просто синхронизируем индекс, не перезаписывая пул
+      if (overlay.style.display === 'flex') {
+        currentGalleryIndex = targetIndex;
+        updateLightboxView();
+      } else {
+        openLightboxWithIndex(targetIndex);
+      }
     } else {
-      // Soft cleanup if deep-linked asset is absent
-      history.replaceState("", document.title, window.location.pathname + window.location.search);
+      // Если картинки нет в текущем активном пуле — мягко чистим хэш
+      if (overlay.style.display !== 'flex') {
+        history.replaceState("", document.title, window.location.pathname + window.location.search);
+      }
     }
   }
 
-  // First pass: scan what is currently available in native HTML layout channel
+  // Экспортируем мост для внешних вызовов (mosaic.js)
+  window.ExposureLightbox = {
+    open: openLightboxWithIndex
+  };
+
+  // Стартовый запуск
   const hasImagesOnLoad = initGalleryPool();
   if (hasImagesOnLoad) {
     resolveActivePhotoHash();
   }
 
-  // Modern Mutation Observer thread to handle asynchronous mosaic streams injections
+  // ЖЕЛЕЗОБЕТОННЫЙ ОБСЕРВЕР: Засыпает, как только открывается лайтбокс
   const observer = new MutationObserver(() => {
+    // Если пользователь открыл лайтбокс — ИГНОРИРУЕМ любые изменения DOM
+    if (overlay.style.display === 'flex') return;
+
     const freshBuildSuccess = initGalleryPool();
     if (freshBuildSuccess) {
-      resolveActivePhotoHash(); // Trigger evaluation track on successful dynamic mount
+      resolveActivePhotoHash(); 
     }
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
 
-  // Listen for manual address bar changes
   window.addEventListener('hashchange', resolveActivePhotoHash);
 });

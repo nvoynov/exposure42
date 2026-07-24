@@ -29,7 +29,7 @@ namespace :site do
 
     # 2. Contextual dynamic lightbox overlays engine
     if (is_main_page || is_series_page) && File.exist?(lightbox_part)
-      extra_args << "--include-before-body=#{lightbox_part}"
+      extra_args << "--include-after-body=#{lightbox_part}"
     end
 
     extra_args
@@ -39,6 +39,7 @@ namespace :site do
   task :compile => ['manifest:sync', 'images:sync'] do
     # 1. Evaluate the pages map FRESH, after manifest:sync has completed its execution
     pages_map = targets_map
+    config = Rawww::Config.instance
     
     # 2. Iterate through the dynamically discovered pages and compile them
     pages_map.each do |destination_path, page|
@@ -55,11 +56,8 @@ namespace :site do
       if should_rebuild
         FileUtils.mkdir_p(File.dirname(destination_path))
 
-        config = Rawww::Config.instance
-        current_root = ENV['RAWWW_PRODUCTION'] == 'true' ? config.production_root_path : config.root_path
-
         base_domain = config.site_url.chomp('/')
-        page_path = "#{current_root}/"
+        page_path = "#{config.site_root}/"
         page_path << "#{destination_path.gsub(%r{#{Rawww::PUBLIC_DIR}/}, '')}" \
           if page.slug != 'index'
         calculated_canonical = "#{base_domain}#{page_path}"
@@ -70,7 +68,7 @@ namespace :site do
           template: template_path,
           destination: destination_path,
           variables: page.metadata.merge(
-            'root_path' => current_root,
+            'root_path' => config.site_root,
             'canonical_url' => calculated_canonical,
             'site_title' => config.title,
             'author' => config.author

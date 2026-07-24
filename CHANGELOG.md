@@ -4,12 +4,11 @@ TODO
 
 __Rawww__
 
-- fix cannonical url for nested html pages
+- [ ] add `Cpnfig#production?` based on ENV
+- [ ] fix cannonical url for nested html pages
 
 __nvoynov.art__
 
-- [ ] prune assets/images/**/*.webp that not exist in series_dir
-- [ ] check on github/exposure
 - [ ] connnect analytics codes
   - [ ] nvoynov.dev
   - [ ] nvoynov.art
@@ -20,6 +19,21 @@ __nvoynov.art__
 __nvoynov.dev__
 
 - [ ] apply Rawww changes!
+
+## 2026-07-24
+
+__NOTE:__ `rake deploy` generate site the way it brokes local site serving. Do
+
+    rake clean
+    rake [build]
+    rake serve
+
+- improved `Rawww` by providing Config `#production?` and `#site_root`
+- improved `default.html` template by providing include-before and after
+- fixed `index.md` (static thing) by referencing scripts relative paths
+- fixed `Build::SeriesPage` by providing `lightbox.js` absolute path
+- `rake push` renamed to `rake deploy`
+- added `image:prune` task
 
 ## 2026-07-23
 

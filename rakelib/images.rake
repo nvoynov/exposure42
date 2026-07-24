@@ -102,7 +102,6 @@ namespace :images do
     end 
   end 
 
-  # pp (SERIES_FULL.keys + SERIES_THUMB.keys)
   desc "Import exposure images"
   task :sync => ([GALLERY_ASSETS_DIR, MOSAIC_MANIFEST] +
     SERIES_FULL.keys +
@@ -110,10 +109,28 @@ namespace :images do
     OG_SERIES_TRG.keys
   )
 
+  desc "Prune orphaned production webp assets that no longer exist in master gallery archive"
+  task :prune do
+    puts "  » Checking for orphaned images in production directories..."
+  
+    # Clean isolation loop: if a generated webp is not present in our active 
+    # target arrays compiled from the domain registry, it's an orphan.
+    valid_targets = (SERIES_FULL.keys + SERIES_THUMB.keys)
+    existing_production_webp =
+      Dir.glob("#{Rawww::PUBLIC_DIR}assets/series/**/*.webp")
+  
+    existing_production_webp.each do |webp_path|
+      unless valid_targets.include?(webp_path)
+        puts "  » pruning evicting orphaned asset: #{webp_path}"
+        File.delete(webp_path)
+      end
+    end
+  end
+
   desc "Clean staged exposure images"
   task :clean do
     FileUtils.rm_rf SERIES_DIR
-    File.delete(SERIES_INDEX) if File.exist?(SERIES_INDEX)
+    puts "  » delete series assets: #{SERIES_DIR}"
   end
 
 end

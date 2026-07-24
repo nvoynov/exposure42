@@ -16,13 +16,7 @@
   <meta property="og:url" content="$canonical_url$">
   <meta property="og:title" content="$if(title)$$title$ | $site_title$$else$$site_title$$endif$">
   <meta property="og:description" content="$description$">
-  <!-- <meta property="og:image" content="$site_url$$root_path$/assets/og_image.png"> -->
-$if(og_image)$
-  <meta property="og:image" content="$site_url$$root_path$$og_image$">
-$else$
-  <meta property="og:image" content="$site_url$$root_path$/assets/og_image.png">
-$endif$
-
+  <meta property="og:image" content="$site_url$$root_path$$if(og_image)$$og_image$$else$/assets/og_image.png$endif$">
 
   <!-- Branding Visual Identities Core Assets -->
   <link rel="icon" type="image/svg+xml" href="$root_path$/assets/favicon.svg">
@@ -31,13 +25,14 @@ $endif$
 </head>
 
 <body>
+  
   <div class="site-container">
     <header class="site-header">
       <div class="site-title">
         <div class="site-title-text">
-          <a href="/index.html">
+          <a href="$root_path$/index.html">
             Nikolay Voynov
-            <img src="/assets/glyph.svg" class="header-divider-icon" alt="" />
+            <img src="$root_path$/assets/glyph.svg" class="header-divider-icon" alt="" />
             Exposure
           </a>
         </div>
@@ -52,15 +47,18 @@ $endif$
       </nav>
     </header>
 
+    <!-- Pandoc native body injection channel -->
+    $include-before$
+
     <main class="content-container">
       <!-- Native Markdown text output channel compiled by Pandoc -->
       <div class="page-main-body-content">
         $body$
       </div>
-
-      <!-- Pandoc native body injection channel -->
-      $include-before$
     </main>
+
+    <!-- Pandoc native body injection channel -->
+    $include-after$
 
     <footer>
       <p>&copy; 2026 $author$. All rights reserved.</p>
@@ -74,7 +72,7 @@ $endif$
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
+          navigator.serviceWorker.register('$root_path$/sw.js')
             .then(reg => console.log('==> [PWA Engine] ServiceWorker successfully registered:', reg.scope))
             .catch(err => console.error('--> [PWA Engine] ServiceWorker registration failed:', err));
         });

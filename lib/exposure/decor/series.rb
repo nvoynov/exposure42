@@ -1,4 +1,4 @@
-require_relative 'asset'
+require_relative 'base'
 
 module Exposure
   module Decor
@@ -30,7 +30,8 @@ module Exposure
       # @return [Array<LayoutAsset>]
       def media_assets
         @media_assets ||= sections
-          .inject([]) { |memo, e| memo + e.media_assets }
+          .map(&:media_assets)
+          .flatten
           .map{ Asset.new(it) }
       end
 

@@ -9,10 +9,11 @@ module Exposure
       def_delegator :'Exposure::Config', :instance, :exposure_config
     end   
 
-    ROOT_PATH =  
-      [ Rawww::Config.instance, ENV['RAWWW_PRODUCTION'] == 'true'
-      ].then{|rawww, production|
-        production ? rawww.production_root_path : rawww.root_path
-      }.freeze
+    def self.root_path
+      config = Rawww::Config.instance
+      production = ENV['RAWWW_PRODUCTION'] == 'true'
+      production ? config.production_root_path : config.root_path
+    end
+    
   end
 end

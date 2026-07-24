@@ -1,31 +1,38 @@
+require_relative 'base'
+
 module Exposure
   module Build
    
-    # Inherit basic serializer
-    # class SeriesSerializer < ::Flatplan::Presenter::PandocManifestSerializer
-    # end
-
     # Series Page Builder
     # class SeriesPage < Base      
     class SeriesPage < ::Flatplan::Presenter::PandocManifestSerializer
-        
+      def call(pub)
+        raw = super(pub)
+        raw << LIGHTBOX % {root: rawww.site_root}
+        raw#.tap{ puts it }
+      end
+      
+      protected
+      
       # add page_type
-      def render_yaml_front_matter(pub)
-        config = Config.instance
-        og_image = File.join(pub.target_assets, config.og_image)
-        super(pub)
+      def render_yaml_front_matter(publication)
+        og_image = File.join(publication.target_assets, exposure.og_image)
+        super(publication)
           .lines
           .insert(-2, "page_type: article\n" ) 
           .insert(-2, "og_image: #{og_image}\n")
           .join
       end
 
+      LIGHTBOX = <<~HTML
+        <script src="%{root}/assets/js/lightbox.js" defer></script>
+      HTML
+
       def serialize_image_tag(asset)
-        # "!\[#{asset.caption}\]\(#{asset.filename}\)"
-        decorated = Decor::Asset.new(asset)
-        filename = decorated.target_thumb_name(@publication.target_assets)
+        decor = Decor::Asset.new(asset)
+        filename = decor.target_thumb_name(@publication.target_assets)
         alt = '' # " alt=\"#{asset.alt}\""
-        "![](#{ROOT_PATH}#{filename}#{alt})"
+        "![](#{rawww.site_root}#{filename}#{alt})"
       end
 
       def serialize_image_metadata(asset)
@@ -43,6 +50,9 @@ module Exposure
 
         "{#{attributes.join(' ')}}"
       end
+
+      def rawww = @rawww ||= Rawww::Config.instance
+      def exposure = @exposure ||= Exposure::Config.instance
     end
   end
 end

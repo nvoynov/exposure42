@@ -54,7 +54,7 @@ namespace :site do
 end
 
 # Intercept the global shortcut call
-task :push do
+task :deploy do
   # 1. Lock the environment into production state
   ENV['RAWWW_PRODUCTION'] = 'true'
   puts "  » Production environment state locked."
@@ -66,7 +66,7 @@ task :push do
   # 3. Trigger a completely fresh, clean production build execution
   puts "  » Triggering fresh production build..."
   Rake::Task['build'].invoke
-  
+
   # 4. Invoke the real deploy mechanism
   Rake::Task['site:push'].invoke
 end

@@ -21,7 +21,6 @@ module Exposure
       
         # Open the global catalog container using native Pandoc Fenced Divs
         index_content << "\n::: {.collections-sketchbook}\n"
-      
         # 2. Iterate through public series tracks only
         gallery.series.reject(&:hidden?).each do |series|
           folder_slug = series.slug
@@ -34,7 +33,7 @@ module Exposure
           
             ::: {.album-cloud-canvas}
           
-            <a href="#{series_url}" aria-label="Open #{series.title}" style="display:block;width:100%;height:100%;text-decoration:none;">
+            <a href="#{Build.root_path}#{series_url}" aria-label="Open #{series.title}" style="display:block;width:100%;height:100%;text-decoration:none;">
           
             ::: {.cloud-photos-wrapper}
             #{build_collage_markup(series)}
@@ -68,7 +67,7 @@ module Exposure
         
           <<~MARKDOWN
             ::: {.cloud-pic .#{slot_class}}
-            ![](#{ROOT_PATH}#{filename})
+            ![](#{Build.root_path}#{filename})
             :::
           MARKDOWN
         end.join("\n")

@@ -1,7 +1,20 @@
-/* src/js/mosaic.js - Todd Hido Engine with Hidden Series Lightbox Exploration */
+/* src/js/mosaic.js - "Todd Hido" inspired Engine with Hidden Series Lightbox Exploration */
 document.addEventListener('DOMContentLoaded', () => {
   const gridContainer = document.getElementById('mosaic-grid');
-  const baseUrl = window.siteBaseUrl || "";
+  
+  // LIVE AUTO-DETECTION:
+  //   calculates GitHub Pages produtction root, otherwise returns "" 
+  const getDynamicBaseUrl = () => {
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    
+    if (isGitHubPages) {
+      const repoName = window.location.pathname.split('/').filter(Boolean)[0];
+      return repoName ? `/${repoName}` : "";
+    }
+    return "";
+  };
+
+  const baseUrl = getDynamicBaseUrl();
   
   const sizeClasses = [
     'size-normal', 'size-normal', 'size-normal', 
