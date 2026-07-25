@@ -9,6 +9,8 @@ __Rawww__
 
 __nvoynov.art__
 
+- [ ] shareable image pages!
+- [ ] port `rake.css` logic from Rawww
 - [ ] connnect analytics codes
   - [ ] nvoynov.dev
   - [ ] nvoynov.art
@@ -19,6 +21,12 @@ __nvoynov.art__
 __nvoynov.dev__
 
 - [ ] apply Rawww changes!
+
+## 2026-07-25
+
+- optimized `mosaic.js` for usign full images for big tiles
+- optimized `manifest.json` by cleaning extra data like "title"
+- changed `build/mosaic_manifest.rb` for providing only necessary data
 
 ## 2026-07-24
 

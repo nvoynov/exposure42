@@ -11,30 +11,17 @@ module Exposure
       # Main execution gateway
       # @param gallery [Exposure::Gallery] the populated object model registry
       def call(gallery)
-        gallery_data = {}
-        gallery.series.each do |series|
-          folder_slug = File.basename(series.directory_path)
-        
-          gallery_data[series.slug] = {
+        gallery_data = gallery.series.map do |series|
+          {
             "album_slug" => series.slug,
             "photos" => series.media_assets.map { |asset|
-              filename = "#{File.basename(asset.filename, '.*')}.webp"
-              {
-                "filename" => filename,
-                "title" => File.basename(filename, ".*").gsub(/[-_]/, " ").capitalize
-              }
+              { "filename" => "#{File.basename(asset.filename, '.*')}.webp" }
             }
           }
         end
 
-        manifest_payload = {
-          "thumb_dir" => exposure_config.target_series_full,
-          "series" => gallery_data.values
-        }
-
-        # TODO: having final manifest.rake, maybe JSON here and return Hash
-        #       let mainifest.rake to decide how an where to store it
-        JSON.pretty_generate(manifest_payload)
+        # Return a tight, zero-garbage database payload
+        JSON.pretty_generate({ "series" => gallery_data })
       end
     end
   end

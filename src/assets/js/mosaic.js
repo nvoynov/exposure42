@@ -1,28 +1,43 @@
-/* src/js/mosaic.js - "Todd Hido" inspired Engine with Hidden Series Lightbox Exploration */
+/* src/js/mosaic.js - Sharp Generative Mosaic Engine */
 document.addEventListener('DOMContentLoaded', () => {
   const gridContainer = document.getElementById('mosaic-grid');
-  
-  // LIVE AUTO-DETECTION:
-  //   calculates GitHub Pages produtction root, otherwise returns "" 
+
+  // LIVE AUTO-DETECTION: Чистый и надежный расчет пути
   const getDynamicBaseUrl = () => {
     const isGitHubPages = window.location.hostname.includes('github.io');
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
     
-    if (isGitHubPages) {
-      const repoName = window.location.pathname.split('/').filter(Boolean)[0];
-      return repoName ? `/${repoName}` : "";
+    // Если мы на GitHub и в массиве путей есть хоть один элемент (это имя репозитория)
+    if (isGitHubPages && pathParts.length > 0) {
+      return `/${pathParts[0]}`; // Гарантированно вернет "/exposure42"
     }
-    return "";
+    return ""; // Локально вернет пустую строку
   };
 
   const baseUrl = getDynamicBaseUrl();
   
-  const sizeClasses = [
-    'size-normal', 'size-normal', 'size-normal', 
-    'size-tall', 'size-tall', 
-    'size-wide', 
-    'size-large', 
-    'spacer', 'spacer'
-  ];
+  // Clean configuration map replacing the repetitive flat array layout
+  // Defines how many times a configuration token is stamped into the probability pool
+  const SIZE_WEIGHTS = {
+    'size-normal': 3,
+    'size-tall': 2,
+    'size-wide': 1,
+    'size-large': 1,
+    'spacer': 2
+  };
+
+  // Expand the weighted configurations dynamically into a clean execution pool
+  const sizeClasses = Object.entries(SIZE_WEIGHTS).flatMap(([className, weight]) => 
+    Array(weight).fill(className)
+  );
+
+  // Helper utility to compile structured photographic asset references safely
+  const mapPhotoRecord = (albumSlug, filename) => ({
+    slug: albumSlug,
+    filename: filename,
+    thumbUrl: `${baseUrl}/assets/series/${albumSlug}/thumb/${filename}`,
+    fullUrl: `${baseUrl}/assets/series/${albumSlug}/full/${filename}`
+  });
 
   // 1. Fetch the runtime gallery manifest compiled by the Rake pipeline
   fetch(`${baseUrl}/assets/manifest.json`)
@@ -32,26 +47,16 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(payload => {
       const rawData = payload.series || [];
-      let allPhotosPool = [];
+      const allPhotosPool = [];
 
-      // We preserve the full rawData structure to extract entire albums on click passes
       rawData.forEach(album => {
+        // Pre-compile sibling references strictly once per album context to save memory runtime cycles
+        const albumSharedRef = album.photos.map(p => mapPhotoRecord(album.album_slug, p.filename));
+
         album.photos.forEach(photo => {
-          allPhotosPool.push({
-            "slug": album.album_slug,
-            "filename": photo.filename,
-            "thumbUrl": `${baseUrl}/assets/series/${album.album_slug}/thumb/${photo.filename}`,
-            "fullUrl": `${baseUrl}/assets/series/${album.album_slug}/full/${photo.filename}`,
-            "title": photo.title,
-            // Keep a clean reference to all fellow sibling photos inside the same series container
-            "albumPhotosRef": album.photos.map(p => ({
-              "slug": album.album_slug,
-              "filename": p.filename,
-              "thumbUrl": `${baseUrl}/assets/series/${album.album_slug}/thumb/${p.filename}`,
-              "fullUrl": `${baseUrl}/assets/series/${album.album_slug}/full/${p.filename}`,
-              "title": p.title
-            }))
-          });
+          const record = mapPhotoRecord(album.album_slug, photo.filename);
+          record.albumPhotosRef = albumSharedRef; // Assign clean reference pointer to siblings array
+          allPhotosPool.push(record);
         });
       });
 
@@ -104,7 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         const photo = shuffledPool[poolIndex];
         item.className = `mosaic-item ${randomSize}`;
-        item.innerHTML = `<img src="${photo.thumbUrl}" alt="" loading="lazy">`;
+
+        // SHARP VISUAL FIX: Leveraging native responsive srcset descriptors.
+        // Falls back to lightweight thumb, but upgrades to crystal clear full resolution on expanded blocks.
+        item.innerHTML = `
+          <img src="${photo.thumbUrl}" 
+               srcset="${photo.thumbUrl} 400w, ${photo.fullUrl} 1200w" 
+               sizes="(max-width: 767px) 50vw, 30vw"
+               alt="" 
+               loading="lazy">`;
+
         gridContainer.appendChild(item);
 
         if (isDesktop && maxViewportHeight > 0 && gridContainer.scrollHeight > maxViewportHeight && displayedImagesCount > 4) {
@@ -117,14 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
           break;
         }
 
-        // --- THE DISCOVERY MAGIC MECHANISM ---
-        // Find the precise structural array sequence of the parent target album track
         const targetSeriesArray = photo.albumPhotosRef;
         const localPhotoIndex = targetSeriesArray.findIndex(p => p.filename === photo.filename);
 
         item.addEventListener('click', () => {
           if (window.ExposureLightbox) {
-            // Trigger the lightbox, loading the ENTIRE native parent series data block!
             window.ExposureLightbox.open(localPhotoIndex >= 0 ? localPhotoIndex : 0, targetSeriesArray);
           }
         });

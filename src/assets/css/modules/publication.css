@@ -6,63 +6,85 @@
   margin: 0 auto 10rem auto;
 }
 
-/* Left layout: curated text column (1.1fr) and wide photos grid column (2fr) */
+/* Left layout: text on the left (1/3), media grid on the right (2/3) */
 .flatplan_layout_left_text {
   display: grid;
   grid-template-columns: 1.1fr 2fr;
   gap: 5rem;
   align-items: start;
+  grid-template-areas: "story media";
 }
 
-/* Right layout: inverted grid matching the left-text counterpart weight */
+.flatplan_layout_left_text .flatplan_story_text { grid-area: story; }
+.flatplan_layout_left_text .flatplan_media_grid { grid-area: media; }
+
+
+/* Right layout: explicitly places media on the left (2/3) and text on the right (1/3) */
 .flatplan_layout_right_text {
   display: grid;
   grid-template-columns: 2fr 1.1fr;
   gap: 5rem;
   align-items: start;
+  grid-template-areas: "media story"; 
 }
 
-/* FIXED: Upgraded selector to H1 for strict semantic outline and matched tracking */
-.page-main-body-content h1 {
-  font-family: inherit !important;
-  font-size: 1.1rem !important;       /* Delicate, proportional scale slightly below site header */
-  font-weight: 300 !important;       /* Elegant, lightweight weighting matching the identity */
-  letter-spacing: 0.18em !important; /* Premium wide editorial tracking */
-  text-transform: uppercase !important; /* Forces strict all-caps styling */
-  color: #1a1a1a !important;
-  text-align: center !important;     /* Centers the title perfectly below the navigation block */
-  margin-top: 2.8125rem !important;  /* 45px / 16 — Air gap under the header border line */
-  margin-bottom: 2.8125rem !important; /* Controlled breathing room before layout starts */
-}
+.flatplan_layout_right_text .flatplan_story_text { grid-area: story; }
+.flatplan_layout_right_text .flatplan_media_grid { grid-area: media; }
+
 
 /* --- THE ARTISTIC NARRATIVE TYPOGRAPHY --- */
-/* FIXED: Elevated text to a premium, prominent literary format to empower the series story */
+.page-main-body-content h1 {
+  font-family: inherit !important;
+  font-size: 1.1rem !important;       
+  font-weight: 300 !important;       
+  letter-spacing: 0.18em !important; 
+  text-transform: uppercase !important; 
+  color: #1a1a1a !important;
+  text-align: center !important;     
+  margin-top: 2.8125rem !important;  
+  margin-bottom: 2.8125rem !important; 
+}
+
 .flatplan_story_text p {
   margin-top: 0;
-  margin-bottom: 1.375rem;          /* 22px / 16 */
-  font-size: 0.95rem !important;    /* ~15.2px — Noticeably large, comfortable, and dominant */
-  line-height: 1.8 !important;      /* Luxurious, breathable line height for dedicated reading */
-  color: #2c2c2c !important;        /* Crisp, deep graphite shade */
+  margin-bottom: 1.375rem;          
+  font-size: 0.95rem !important;    
+  line-height: 1.8 !important;      
+  color: #2c2c2c !important;        
   text-align: left !important;
 }
 
-/* Automatic responsive grid configuration for photographic content packs */
+
+/* --- THE MEDIA GRIDS & HERO SHOWCASE --- */
+
+/* Standard 2-column pack for inline content alongside story texts */
 .flatplan_media_grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
   gap: 2.5rem;
 }
 
-/* Unwraps implicit Pandoc <p> block tags to enforce raw flex/grid node parsing */
-.flatplan_media_grid p, .flatplan_visual_pause p {
+/* 
+   Editorial Hero Showcase:
+   Strictly enforces 3 columns layout. If there are fewer than 3 images, 
+   they will just occupy their respective grid tracks WITHOUT growing in size.
+*/
+.flatplan_editorial_hero .flatplan_media_grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem; 
+}
+
+/* Unwraps implicit Pandoc <p> tags across all components for correct raw block parsing */
+.flatplan_media_grid p, .flatplan_visual_pause p, .flatplan_editorial_hero p {
   display: contents; 
 }
 
-/* Photography assets specifications inside layout blocks */
+/* Global photography assets specifications */
 .flatplan_media_grid img, .flatplan_editorial_hero img {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover; 
   border: 1px solid rgba(0,0,0,0.02);
 }
 
@@ -72,11 +94,6 @@
   margin-bottom: 16rem;
 }
 
-/* Monumental hero showcase block node specs */
-.flatplan_editorial_hero img {
-  max-width: 100%;
-  margin: 0 auto;
-}
 
 /* ==========================================================================
    PRODUCTION RESPONSIVE MOBILE DOWNGRADE BREAKPOINTS
@@ -85,9 +102,28 @@
   .flatplan_layout_left_text, .flatplan_layout_right_text {
     grid-template-columns: 1fr;
     gap: 3rem;
+    grid-template-areas: 
+      "story"
+      "media";
+  }
+
+  .flatplan_layout_right_text {
+    grid-template-areas: 
+      "story"
+      "media";
+  }
+
+  .flatplan_media_grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .flatplan_editorial_hero .flatplan_media_grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
   
   .flatplan_story_text p {
-    padding: 0 0.625rem; /* 10px / 16 — Safety padding limits for mobile screens */
+    padding: 0 0.625rem;
   }
 }
