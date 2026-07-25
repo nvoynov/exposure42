@@ -10,6 +10,7 @@ __Rawww__
 __nvoynov.art__
 
 - [ ] shareable image pages!
+- [ ] mabye .gitinore should ignore src/series, or all improted content
 - [ ] port `rake.css` logic from Rawww
 - [ ] connnect analytics codes
   - [ ] nvoynov.dev
