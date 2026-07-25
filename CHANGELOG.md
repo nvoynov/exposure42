@@ -28,6 +28,8 @@ __nvoynov.dev__
 - optimized `mosaic.js` for usign full images for big tiles
 - optimized `manifest.json` by cleaning extra data like "title"
 - changed `build/mosaic_manifest.rb` for providing only necessary data
+- added unique image pages "Fine-Art print sepcification" with og:image
+  simplified lightbox.js; no more `#image`-hashed links
 
 ## 2026-07-24
 
