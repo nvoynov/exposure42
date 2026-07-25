@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RAWWW CORE LIGHTBOX & DEEP LINKING ENGINE (DYNAMIC LIVE DOM PACK)
+   RAWWW CORE LIGHTBOX ENGINE (CLEAN PARAMETER-DRIVEN INTERFACE)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,62 +15,58 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyBtn = document.getElementById('copy-link-btn');
   const toast = document.getElementById('lightbox-toast');
 
-  // ХРАНИЛИЩА РАЗДЕЛЕНЫ:
-  let domParsedPool = [];       // Сюда MutationObserver собирает картинки из HTML
-  let currentActivePool = [];   // А этот пул ЛИСТАЕТ лайтбокс (может быть альбомом)
+  let photosPool = [];       
   let currentGalleryIndex = 0;
 
-  // 1. Open Trigger (Теперь железобетонный)
+  // 1. Core Open View Trigger
   const openLightboxWithIndex = (index, customPhotosArray = null) => {
-    // Если мозаика передала скрытый альбом — берем его, если нет — берем слепок DOM страницы
-    currentActivePool = customPhotosArray ? customPhotosArray : [...domParsedPool];
+    // If a custom array is passed (from mosaic.js), slice it into memory, otherwise keep standard pool
+    if (customPhotosArray) {
+      photosPool = customPhotosArray;
+    }
     
-    if (currentActivePool.length === 0) return;
+    if (photosPool.length === 0) return;
     currentGalleryIndex = index;
     updateLightboxView();
     overlay.style.display = 'flex';
   };
 
-  // 2. Sync State & URL Hash
+  // 2. Sync State & Target Image Content Source
   const updateLightboxView = () => {
-    const photo = currentActivePool[currentGalleryIndex];
+    const photo = photosPool[currentGalleryIndex];
     if (!photo) return;
-    
     lightboxImg.src = photo.fullUrl || photo.thumbUrl.replace('/thumb/', '/full/');
-    
-    if (photo.filename) {
-      const cleanName = photo.filename.split('.');
-      const imgSlug = cleanName[0] || '';
-      window.location.hash = imgSlug;
-    }
   };
 
-  // 3. Navigation Controls (работают с изолированным активным пулом)
+  // 3. Navigation Controls
   const lightboxNext = () => {
-    if (currentActivePool.length === 0) return;
-    currentGalleryIndex = (currentGalleryIndex + 1) % currentActivePool.length;
+    if (photosPool.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex + 1) % photosPool.length;
     updateLightboxView();
   };
 
   const lightboxPrev = () => {
-    if (currentActivePool.length === 0) return;
-    currentGalleryIndex = (currentGalleryIndex - 1 + currentActivePool.length) % currentActivePool.length;
+    if (photosPool.length === 0) return;
+    currentGalleryIndex = (currentGalleryIndex - 1 + photosPool.length) % photosPool.length;
     updateLightboxView();
   };
 
   const closeLightbox = () => {
     overlay.style.display = 'none';
-    history.pushState("", document.title, window.location.pathname + window.location.search);
+    // Cleanly wipe the '?img=' tracking parameters from the address bar without reload
+    history.replaceState("", document.title, window.location.pathname + window.location.search.replace(/\?img=[^&]*/, '').replace(/^&/, '?'));
+    
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(() => {});
     }
   };
 
-  // Bind Clicks & Keys
+  // Bind Standard Click Targets
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
   if (prevBtn)  prevBtn.addEventListener('click', lightboxPrev);
   if (nextBtn)  nextBtn.addEventListener('click', lightboxNext);
 
+  // Keyboard controls
   document.addEventListener('keydown', (e) => {
     if (overlay.style.display !== 'flex') return;
     if (e.key === 'Escape') closeLightbox();
@@ -90,9 +86,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- INTEGRATED PRODUCTION CLIPBOARD SHARE GENERATOR ---
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(window.location.href).then(() => {
+      const photo = photosPool[currentGalleryIndex];
+      if (!photo) return;
+
+      const siteOrigin = window.location.origin;
+      const pathParts = window.location.pathname.split('/').filter(Boolean);
+      const isGitHubPages = window.location.hostname.includes('github.io');
+      
+      // FIXED: Strictly extract ONLY the first segment (the repository name) from the array 
+      // instead of injecting the entire array object as a comma-separated string
+      const rootPrefix = isGitHubPages && pathParts.length > 0 ? `/${pathParts[0]}` : '';
+      
+      const cleanName = photo.filename.split('.');
+      const cleanSlug = (cleanName[0] || '').toLowerCase();
+
+      let targetAlbumSlug = photo.slug;
+      if (!targetAlbumSlug && photo.thumbUrl) {
+        const urlSegments = photo.thumbUrl.split('/');
+        const seriesIndex = urlSegments.indexOf('series');
+        if (seriesIndex !== -1 && urlSegments[seriesIndex + 1]) {
+          targetAlbumSlug = urlSegments[seriesIndex + 1];
+        }
+      }
+
+      if (!targetAlbumSlug) targetAlbumSlug = 'unknown';
+
+      // Constructs the precise absolute URL path link structure
+      const shareUrl = `${siteOrigin}${rootPrefix}/series/${targetAlbumSlug}/${cleanSlug}.html`;
+
+      navigator.clipboard.writeText(shareUrl).then(() => {
         if (!toast) return;
         toast.classList.add('visible');
         setTimeout(() => toast.classList.remove('visible'), 2000);
@@ -100,89 +125,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
-  // --- LAYER 2: LIVE DOM POOL REFRESHER ---
+  // --- LAYER 2: STATIC HTML INITIAL DATA POOL SCANNER ---
 
   const initGalleryPool = () => {
-    const pageImages = Array.from(document.querySelectorAll('.flatplan_media_grid img, .flatplan_editorial_hero img, #mosaic-grid img'));
-    if (pageImages.length === 0) return false;
+    const pageImages = Array.from(document.querySelectorAll('.flatplan_media_grid img, .flatplan_editorial_hero img'));
+    if (pageImages.length === 0) return;
 
-    // Скрипт обновляет ТОЛЬКО слепок страницы, не трогая то, что сейчас открыто в лайтбоксе
-    domParsedPool = pageImages.map(img => {
+    const currentUrlParts = window.location.pathname.split('/').pop() || '';
+    const pageAlbumSlug = currentUrlParts.replace('.html', '');
+
+    // Synchronously parse static DOM elements directly once on page init lifecycle checkpoint
+    photosPool = pageImages.map(img => {
       const thumbUrl = img.src;
+      const filename = thumbUrl.split('/').pop() || '';
+
       return {
         "thumbUrl": thumbUrl,
         "fullUrl": thumbUrl.replace('/thumb/', '/full/'),
-        "filename": thumbUrl.split('/').pop(),
+        "filename": filename,
+        "slug": pageAlbumSlug,
         "title": img.alt || ""
       };
     });
 
-    // Привязываем клики
+    // Bind basic triggers to static tiles
     pageImages.forEach((img, currentIndex) => {
       img.style.cursor = 'pointer';
-      img.removeEventListener('click', img._lightboxClick);
-      img._lightboxClick = () => openLightboxWithIndex(currentIndex);
-      img.addEventListener('click', img._lightboxClick);
+      img.addEventListener('click', () => openLightboxWithIndex(currentIndex));
     });
-
-    return true;
   };
 
 
-// --- LAYER 3: ROBUST MUTATION TRACKER & ROUTER ---
+  // --- LAYER 3: DEEP LINK GATEWAY PARAMETER PARSER ---
   
-  function resolveActivePhotoHash() {
-    const hash = window.location.hash;
-    if (!hash) return;
+  function resolveActivePhotoParameter() {
+    // Standard interface hook reading query string parameter mappings: e.g., ?img=DP0Q0398
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetImageName = urlParams.get('img');
+    if (!targetImageName) return;
 
-    const cleanId = decodeURIComponent(hash.substring(1));
-    if (!cleanId) return;
-
-    // Ищем картинку в актуальном пуле, который СЕЙЧАС открыт в лайтбоксе, 
-    // либо в слепке страницы, если лайтбокс закрыт
-    const activePoolToSearch = overlay.style.display === 'flex' ? currentActivePool : domParsedPool;
-    const targetIndex = activePoolToSearch.findIndex(p => p.filename.includes(cleanId));
+    // Probe the active context database pool for matching filename elements (case-insensitive check)
+    const targetIndex = photosPool.findIndex(p => p.filename.toLowerCase().includes(targetImageName.toLowerCase()));
 
     if (targetIndex !== -1) {
-      // Если мы уже смотрим этот альбом, просто синхронизируем индекс, не перезаписывая пул
-      if (overlay.style.display === 'flex') {
-        currentGalleryIndex = targetIndex;
-        updateLightboxView();
-      } else {
-        openLightboxWithIndex(targetIndex);
-      }
-    } else {
-      // Если картинки нет в текущем активном пуле — мягко чистим хэш
-      if (overlay.style.display !== 'flex') {
-        history.replaceState("", document.title, window.location.pathname + window.location.search);
-      }
+      openLightboxWithIndex(targetIndex);
     }
   }
 
-  // Экспортируем мост для внешних вызовов (mosaic.js)
+  // Export safe bridge hooks globally for asynchronous external injection execution (mosaic.js)
   window.ExposureLightbox = {
     open: openLightboxWithIndex
   };
 
-  // Стартовый запуск
-  const hasImagesOnLoad = initGalleryPool();
-  if (hasImagesOnLoad) {
-    resolveActivePhotoHash();
-  }
-
-  // ЖЕЛЕЗОБЕТОННЫЙ ОБСЕРВЕР: Засыпает, как только открывается лайтбокс
-  const observer = new MutationObserver(() => {
-    // Если пользователь открыл лайтбокс — ИГНОРИРУЕМ любые изменения DOM
-    if (overlay.style.display === 'flex') return;
-
-    const freshBuildSuccess = initGalleryPool();
-    if (freshBuildSuccess) {
-      resolveActivePhotoHash(); 
-    }
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  window.addEventListener('hashchange', resolveActivePhotoHash);
+  // Run native parsing loops sequentially
+  initGalleryPool();
+  resolveActivePhotoParameter();
 });

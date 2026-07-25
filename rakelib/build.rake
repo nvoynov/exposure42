@@ -36,7 +36,7 @@ namespace :site do
   end
 
   desc "Compile all Markdown pages into production HTML website"
-  task :compile => ['manifest:sync', 'images:sync'] do
+  task :compile => ['manifest:sync', 'images:sync', 'pages:image_nodes'] do
     # 1. Evaluate the pages map FRESH, after manifest:sync has completed its execution
     pages_map = targets_map
     config = Rawww::Config.instance

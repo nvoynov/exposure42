@@ -11,23 +11,23 @@ description: Personal photography journeys and visual narratives exploration.
 
 ::: {.cloud-photos-wrapper}
 ::: {.cloud-pic .pic-base}
-![](/exposure42/assets/series/almaznoe/thumb/DP2Q3714.webp)
+![](/exposure42/assets/series/almaznoe/thumb/P1011900.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-one}
-![](/exposure42/assets/series/almaznoe/thumb/P1012207.webp)
+![](/exposure42/assets/series/almaznoe/thumb/DP2Q3636.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-two}
-![](/exposure42/assets/series/almaznoe/thumb/P1011864.webp)
+![](/exposure42/assets/series/almaznoe/thumb/P1001074.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-three}
-![](/exposure42/assets/series/almaznoe/thumb/P1011868.webp)
+![](/exposure42/assets/series/almaznoe/thumb/P1000954.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-four}
-![](/exposure42/assets/series/almaznoe/thumb/P1001064.webp)
+![](/exposure42/assets/series/almaznoe/thumb/P1012207.webp)
 :::
 
 :::
@@ -50,19 +50,19 @@ description: Personal photography journeys and visual narratives exploration.
 :::
 
 ::: {.cloud-pic .pic-offset-one}
-![](/exposure42/assets/series/the-fluid-axes/thumb/P1011859.webp)
+![](/exposure42/assets/series/the-fluid-axes/thumb/P1001501.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-two}
-![](/exposure42/assets/series/the-fluid-axes/thumb/P1001505.webp)
-:::
-
-::: {.cloud-pic .pic-offset-three}
 ![](/exposure42/assets/series/the-fluid-axes/thumb/P1011861.webp)
 :::
 
+::: {.cloud-pic .pic-offset-three}
+![](/exposure42/assets/series/the-fluid-axes/thumb/P1001505.webp)
+:::
+
 ::: {.cloud-pic .pic-offset-four}
-![](/exposure42/assets/series/the-fluid-axes/thumb/P1001501.webp)
+![](/exposure42/assets/series/the-fluid-axes/thumb/P1011859.webp)
 :::
 
 :::
@@ -81,23 +81,23 @@ description: Personal photography journeys and visual narratives exploration.
 
 ::: {.cloud-photos-wrapper}
 ::: {.cloud-pic .pic-base}
-![](/exposure42/assets/series/diamond-dust/thumb/P1001476.webp)
-:::
-
-::: {.cloud-pic .pic-offset-one}
-![](/exposure42/assets/series/diamond-dust/thumb/P1001463.webp)
-:::
-
-::: {.cloud-pic .pic-offset-two}
 ![](/exposure42/assets/series/diamond-dust/thumb/P1001464.webp)
 :::
 
+::: {.cloud-pic .pic-offset-one}
+![](/exposure42/assets/series/diamond-dust/thumb/P1001475.webp)
+:::
+
+::: {.cloud-pic .pic-offset-two}
+![](/exposure42/assets/series/diamond-dust/thumb/P1001463.webp)
+:::
+
 ::: {.cloud-pic .pic-offset-three}
-![](/exposure42/assets/series/diamond-dust/thumb/P1001474.webp)
+![](/exposure42/assets/series/diamond-dust/thumb/P1001467.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-four}
-![](/exposure42/assets/series/diamond-dust/thumb/P1001467.webp)
+![](/exposure42/assets/series/diamond-dust/thumb/P1001468.webp)
 :::
 
 :::
@@ -116,23 +116,23 @@ description: Personal photography journeys and visual narratives exploration.
 
 ::: {.cloud-photos-wrapper}
 ::: {.cloud-pic .pic-base}
-![](/exposure42/assets/series/svalovichi-two-journeys/thumb/DP2Q3166.webp)
-:::
-
-::: {.cloud-pic .pic-offset-one}
-![](/exposure42/assets/series/svalovichi-two-journeys/thumb/DP2Q2655.webp)
-:::
-
-::: {.cloud-pic .pic-offset-two}
 ![](/exposure42/assets/series/svalovichi-two-journeys/thumb/DP0Q0549.webp)
 :::
 
-::: {.cloud-pic .pic-offset-three}
+::: {.cloud-pic .pic-offset-one}
 ![](/exposure42/assets/series/svalovichi-two-journeys/thumb/DP2Q3271.webp)
 :::
 
+::: {.cloud-pic .pic-offset-two}
+![](/exposure42/assets/series/svalovichi-two-journeys/thumb/DP2Q3280.webp)
+:::
+
+::: {.cloud-pic .pic-offset-three}
+![](/exposure42/assets/series/svalovichi-two-journeys/thumb/DP2Q2655.webp)
+:::
+
 ::: {.cloud-pic .pic-offset-four}
-![](/exposure42/assets/series/svalovichi-two-journeys/thumb/DP2Q2554.webp)
+![](/exposure42/assets/series/svalovichi-two-journeys/thumb/DP2Q3359.webp)
 :::
 
 :::
@@ -151,23 +151,23 @@ description: Personal photography journeys and visual narratives exploration.
 
 ::: {.cloud-photos-wrapper}
 ::: {.cloud-pic .pic-base}
-![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2173.webp)
+![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2181.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-one}
-![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2192.webp)
+![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2200.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-two}
-![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2962.webp)
+![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2948.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-three}
-![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2956.webp)
+![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2962.webp)
 :::
 
 ::: {.cloud-pic .pic-offset-four}
-![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP0Q0401.webp)
+![](/exposure42/assets/series/stonetomb-toward-the-edge/thumb/DP2Q2192.webp)
 :::
 
 :::

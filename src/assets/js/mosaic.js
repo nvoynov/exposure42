@@ -50,12 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const allPhotosPool = [];
 
       rawData.forEach(album => {
-        // Pre-compile sibling references strictly once per album context to save memory runtime cycles
-        const albumSharedRef = album.photos.map(p => mapPhotoRecord(album.album_slug, p.filename));
+        // Explicitly capture the active album slug in an isolated block scope
+        const currentAlbumSlug = album.album_slug;
+
+        // Pre-compile sibling references using the strictly isolated scope variable
+        const albumSharedRef = album.photos.map(p => mapPhotoRecord(currentAlbumSlug, p.filename));
 
         album.photos.forEach(photo => {
-          const record = mapPhotoRecord(album.album_slug, photo.filename);
-          record.albumPhotosRef = albumSharedRef; // Assign clean reference pointer to siblings array
+          const record = mapPhotoRecord(currentAlbumSlug, photo.filename);
+          // Assign the clean, verified reference pointer to the isolated siblings array
+          record.albumPhotosRef = albumSharedRef; 
           allPhotosPool.push(record);
         });
       });
@@ -114,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Falls back to lightweight thumb, but upgrades to crystal clear full resolution on expanded blocks.
         item.innerHTML = `
           <img src="${photo.thumbUrl}" 
+               data-album-slug="${photo.slug}"
                srcset="${photo.thumbUrl} 400w, ${photo.fullUrl} 1200w" 
                sizes="(max-width: 767px) 50vw, 30vw"
                alt="" 
