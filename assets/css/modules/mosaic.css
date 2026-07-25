@@ -1,0 +1,72 @@
+/* src/css/modules/mosaic.css */
+
+/* Desktop Canvas Boundaries: Provides a rock-solid physical pixel height 
+   for the JavaScript clientHeight measurements while maintaining pristine spacing */
+.canvas-wrapper {
+  width: 100%;
+  height: calc(100vh - 180px); /* Strict adaptive height budget minus headers */
+  overflow: hidden; /* Prevent internal container spillages */
+  position: relative;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* Base Desktop Mosaic Grid Layout (4 Columns) */
+.mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(135px, auto);
+  gap: 25px;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: auto;
+}
+
+.mosaic-item {
+  background-color: transparent;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  opacity: 0;
+  transform: scale(0.99);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.mosaic-item.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mosaic-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+.mosaic-item:hover img {
+  opacity: 0.85;
+}
+
+/* Structural Grid Sizing Patterns */
+.size-normal { grid-column: span 1; grid-row: span 1; }
+.size-wide   { grid-column: span 2; grid-row: span 1; }
+.size-tall   { grid-column: span 1; grid-row: span 2; }
+.size-large  { grid-column: span 2; grid-row: span 2; }
+
+/* ==========================================================================
+   MOBILE & TABLET VIEWPORT ADAPTATION (PREMIUM SCROLLABLE COLLAGE)
+   ========================================================================== */
+@media (max-width: 767px) {
+  .canvas-wrapper {
+    height: auto; /* Allow natural expansion on mobile so the footer follows cleanly */
+    overflow-y: visible;
+    padding: 20px 10px;
+  }
+
+  .mosaic-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns matrix layout on mobile screens */
+    grid-auto-rows: minmax(115px, auto);
+    gap: 15px;
+  }
+}

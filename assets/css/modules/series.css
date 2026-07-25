@@ -1,0 +1,21 @@
+/* src/css/modules/series.css - Styles strictly for genuine internal series pages layout context */
+
+.page-main-body-content h2 {
+  font-family: inherit !important;
+  font-size: 1.1rem !important;       /* Уменьшили с 1.5rem, чтобы он стал изящнее логотипа */
+  font-weight: 300 !important;       /* Легкий журнальный вес */
+  letter-spacing: 0.18em !important; /* Чуть увеличили разрядку для баланса */
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+  text-align: center !important;     
+  margin-top: 45px !important;       /* Слегка поджали верхний отступ */
+  margin-bottom: 45px !important;    
+}
+
+@media (max-width: 767px) {
+  .page-main-body-content h2 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    margin-bottom: 45px;
+  }
+}

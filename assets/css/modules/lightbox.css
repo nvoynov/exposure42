@@ -1,0 +1,139 @@
+/* src/css/modules/lightbox.css - Premium Right-Top Column Lightbox Layout */
+
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: #4a4a4a; /* THE EXACT ORIGINAL PRODUCTION GREY BG COLOR */
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+/* Central Photographic Stage Area Zone */
+.lightbox-stage {
+  position: relative;
+  width: calc(100vw - 240px); /* Secure safe paddings margin for clean side margins */
+  height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Original Premium White Passepartout Frame Matrix */
+.lightbox-stage img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  background: #ffffff; /* Thick white core paper background wrapper */
+  padding: 25px 25px 35px 25px; /* Deep bottom gallery border style */
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+}
+
+/* Baseline Icon Action Component Blueprint */
+.lightbox-btn {
+  background: transparent;
+  border: none;
+  color: #b0b0b0; /* Restored elegant matte contrast line lines */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.2s ease, transform 0.1s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.lightbox-btn svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.0; /* Exact line-weight integrity matching master site templates */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lightbox-btn:hover {
+  color: #ffffff;
+}
+
+/* Decoupled Navigational Direction Arrows Placements */
+.lightbox-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px; height: 60px;
+  z-index: 2005;
+}
+.lightbox-nav-arrow svg {
+  stroke-width: 1.5; /* Beautiful clean thin arrows weight */
+}
+.lightbox-nav-arrow:active { transform: translateY(-50%) scale(0.92); }
+
+.lightbox-arrow-left  { left: 40px; }
+.lightbox-arrow-right { right: 40px; }
+
+/* ==========================================================================
+   THE UNIFIED UPPER-RIGHT VERTICAL CONTROL STEWARD (TOP RIGHT STACK)
+   ========================================================================== */
+.lightbox-options-vertical-rack {
+  position: absolute;
+  top: 40px;    /* Locked strictly into the upper-right corner margins */
+  right: 48px;  /* Aligned flawlessly above the vertical right arrow plane */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;    /* Clean operational spacing breaks */
+  z-index: 2010;
+  align-items: center;
+}
+
+.lightbox-options-vertical-rack .lightbox-btn {
+  width: 44px; height: 44px;
+}
+.lightbox-options-vertical-rack .lightbox-btn:active { transform: scale(0.9); }
+
+/* System Toast Notification Module */
+.lightbox-toast-alert {
+  position: absolute;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  color: #111111;
+  padding: 10px 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 2020;
+}
+.lightbox-toast-alert.visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MOBILE SCREEN BREAKPOINT DOWNGRADE
+   ========================================================================== */
+@media (max-width: 900px) {
+  .lightbox-stage {
+    width: 100vw; height: calc(100vh - 160px);
+    padding: 15px;
+  }
+  .lightbox-stage img {
+    padding: 12px 12px 18px 12px;
+  }
+  .lightbox-nav-arrow { display: none; }
+  
+  /* Shifts to an lightweight horizontal hotbar at the bottom of the device viewport */
+  .lightbox-options-vertical-rack {
+    flex-direction: row-reverse; /* Maintains sequence logic horizontally */
+    top: auto; bottom: 30px;
+    right: auto; left: 50%;
+    transform: translateX(-50%);
+    gap: 32px;
+  }
+}
